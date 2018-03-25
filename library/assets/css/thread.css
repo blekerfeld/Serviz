@@ -1,0 +1,102 @@
+div.entryThread{
+	margin: 10px;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+div.entryThread img.avatar{
+	height: 20px;
+	width: auto;
+	float: left;
+	border-radius: 10px;
+}
+
+div.entryThread strong.title{
+	display: block;
+	padding: 5px;
+	font-size: 15px;
+	border-bottom: 1px dotted #d4d4d5;
+	margin-bottom: 3px;
+	font-family: Merriweather;
+}
+
+div.entryThread a.buttonTh{
+	color: #000;
+	opacity: .6;
+	transition: all .2s;
+}
+
+div.entryThread a.buttonTh:hover{
+	opacity: 1;
+	color: #24A22D;
+}
+
+div.entryThread span.title{
+	display: block;
+	margin-left: 12px;
+	float: left;
+}
+
+div.entryThread div.content{
+	padding: 10px;
+}
+
+
+div.entryThread a.buttonTh{
+
+}
+
+div.entryThread a.username{
+	color: #212121;
+}
+div.entryThread a.username:hover{
+	text-decoration: underline;
+}
+
+div.entryThread div.parent{
+	width: 100%;
+	padding-right: 0px;
+	padding-bottom: 0px;
+}
+
+div.entryThread div.children{
+	margin-left: 5%;
+}
+
+div.entryThread div.children.main{
+	border-bottom: 1px dotted #ededed;
+	padding-bottom: 10px;
+}
+
+div.entryThreadHolder div.entryThread:first-child div.children{
+	border-left: 1px dotted #ededed;
+}
+
+div.entryThread div.children div.parent{
+	border-bottom: 1px dotted #ededed;
+	border-radius: 0px 0px 0px 5px;
+	padding: 0px;
+	padding-top: 10px;
+	padding-left: 20px;
+	margin-left: -3px;
+}
+
+div.entryThread .pSectionTitle.extra{
+	border: 1px dotted #ededed;
+}
+
+div.entryThread .pSectionWrapper{
+	border: 1px dotted #ededed;
+}
+
+div.entryThread div.children div.parent .pSectionWrapper{
+	border-bottom: none;
+	border-radius: 0px;
+}
+
+
+div.entryThread  .pSectionWrapper{
+	margin: 0;
+	background: white;
+	padding: 0;
+}

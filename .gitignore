@@ -1,0 +1,4 @@
+-# Serviz cache
+*.cache
+vendor
+.composerlock
