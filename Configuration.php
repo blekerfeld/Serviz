@@ -1,5 +1,5 @@
 <?php
-// Serviz 0.11-dev - Thomas de Roo - Licensed under MIT
+// Serviz 1.0.1 - Thomas de Roo - Licensed under MIT
 // file: Configuration.php
 
 define('CONFIG_DB_HOST', 'localhost');
@@ -26,5 +26,5 @@ mb_regex_encoding("UTF-8");
 // The Main class is very important
 require CONFIG_ROOT_PATH . '/src/main/Main.class.php';
 
-// Now let's initialize the Serviz, and give it back to index.php
+// Now let's initialize, and give the initialized program back to index.php
 return pMain::initialize();

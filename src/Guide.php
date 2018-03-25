@@ -1,5 +1,5 @@
 <?php
-// Serviz 0.11-dev - Thomas de Roo - Licensed under MIT
+// Serviz 1.0.1 - Thomas de Roo - Licensed under MIT
 // file: Guide.php
 	// The structure of serviz's routing
 

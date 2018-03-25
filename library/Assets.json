@@ -10,7 +10,7 @@
       "vendors\/jquery.select2.js",
       "vendors\/jquery.smoothstate.js",
       "vendors\/cookieconsent.js",
-      "smoothstate.js",
+      "smoothstate.js"
    ],
    "css":[
       "main.css",

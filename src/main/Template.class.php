@@ -1,5 +1,5 @@
 <?php
-// Serviz 0.11-dev - Thomas de Roo - Licensed under MIT
+// Serviz 1.0.1 - Thomas de Roo - Licensed under MIT
 // file: Template.class.php
 
 class pTemplate{
@@ -53,15 +53,6 @@ class pTemplate{
         padding-right: 40px;
       }
 
-      div.header.dictionary{
-        padding: calc(".CONFIG_PAGE_MARGIN." +  20px);
-        margin-top: 40px;
-      }
-
-      div.hStripe {
-         border-top: 0px solid ".CONFIG_ACCENT_COLOR_1."
-         border-bottom: 3px solid #e6e6e6;
-      }
 
       a{
           color: ".CONFIG_ACCENT_COLOR_1."
@@ -72,9 +63,6 @@ class pTemplate{
           border-bottom: 3px solid ".CONFIG_ACCENT_COLOR_1.";
       }
 
-      .header.dictionary.home .hSearch{
-        ".CONFIG_HEADER_CSS_HSEARCH.";
-      }
 
     ");
     return "<link rel='stylesheet' href='".p::Url('pol://library/assets/css/key.css.php?key='.$hashKey)."'>";
@@ -159,7 +147,7 @@ class pTemplate{
 <html>
   <head>
     <title><?php echo self::$title; ?></title>
-    <link rel="shortcut icon" href="<?php echo p::Url('library/staticimages/faveicon.png'); ?>">
+    <link rel="shortcut icon" href="<?php echo p::Url('library/staticimages/icon.png'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -223,7 +211,7 @@ class pTemplate{
         <span class='float-left'>
          <?php 
           $head = file_get_contents(sprintf('.git/refs/heads/%s', 'master'));
-          echo "<a href='https://github.com/blekerfeld/serviz/commit/$head' class='tooltip'><i class='fab fa-github fa-10'></i> /serviz</a> 0.11-dev</a>"; 
+          echo "<a href='https://github.com/blekerfeld/serviz/commit/$head' class='tooltip'><i class='fab fa-github fa-10'></i> /serviz</a> 1.0.1</a>"; 
         ?> / Thomas de Roo</span><span class='float-right'>
          </span></span><br />
     </div>

@@ -1,5 +1,5 @@
 <?php
-// Serviz 0.11-dev - Thomas de Roo - Licensed under MIT
+// Serviz 1.0.1 - Thomas de Roo - Licensed under MIT
 // file: Entry.class.php
 
 //$structure, $icon, $surface, $table, $itemsperpage, $dfs, $actions, $actionbar, $paginated, $section, $app = 'dictionary-admin')
