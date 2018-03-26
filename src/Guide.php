@@ -46,6 +46,30 @@ return [
 		'menu' => 'dictionary-admin',
 	],
 
+	'survey' => [
+		'page_title' => 'Survey',
+		'default_section' => 'ask',
+		'override_structure_type' => 'pAssistantStructure',
+		'arguments' => [
+			0 => 'section',
+			1 => 'action',
+			2 => 'id',
+		],
+		'menu' => 'dictionary-admin',
+	],
+
+	'manage' => [
+		'page_title' => 'manage',
+		'default_section' => 'surveywords',
+		'override_structure_type' => 'pAdminStructure',
+		'arguments' => [
+			0 => 'section',
+			1 => 'action',
+			2 => 'id',
+		],
+		'menu' => 'dictionary-admin',
+	],
+
 
 	'MAGIC_MARKDOWN' => [
 		'DIS' => [

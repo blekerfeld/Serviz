@@ -7,15 +7,15 @@
 class pTranslationTaskHandler extends pAssistantHandler{
 
 	public function render($ajax = false){
-		$_SESSION['btChooser-translate'] = 0;
+		$_SESSION['btChooser-do'] = 0;
 		return $this->_view->render($this->_section, [], $ajax);
 	}
 
 	public function getData($id = -1){
 
-		if(isset(pRegister::session()['btChooser-translate'])){
+		if(isset(pRegister::session()['btChooser-do'])){
 			$this->_dataModel = new pDataModel('survey_words');
-			$this->_data = $this->_dataModel->complexQuery("SELECT * FROM survey_words WHERE language != '".$_SESSION['btChooser-background']."' AND survey_version = '".$_SESSION['btSurveyVersion']."' AND id NOT IN ( '" . @implode($_SESSION['btSkip-translate'], "', '") . "' ) LIMIT 1;")->fetchAll();
+			$this->_data = $this->_dataModel->complexQuery("SELECT * FROM survey_words WHERE language != '".$_SESSION['btChooser-ask']."' AND survey_version = '".$_SESSION['btSurveyVersion']."' AND id NOT IN ( '" . @implode($_SESSION['btSkip-do'], "', '") . "' ) ORDER BY sorter ASC LIMIT 1;")->fetchAll();
 		}
 		
 		return false;
@@ -34,10 +34,10 @@ class pTranslationTaskHandler extends pAssistantHandler{
 
 	public function ajaxHandle(){
 
-		$_SESSION['btSkip-translate'][] = $this->_data[0]['id'];
+		$_SESSION['btSkip-do'][] = $this->_data[0]['id'];
 		$correctTranslations = [];
 
-		$checkMatch = (new pDataModel('survey_correct_translations'))->setCondition(" WHERE survey_word = '".$this->_data[0]['id']."' AND language = '".pRegister::session()['btChooser-background']."' ")->getObjects();
+		$checkMatch = (new pDataModel('survey_correct_translations'))->setCondition(" WHERE survey_word = '".$this->_data[0]['id']."' AND language = '".pRegister::session()['btChooser-ask']."' ")->getObjects();
 
 		if($checkMatch->fetchAll())
 			foreach($checkMatch->fetchAll() as $translation)

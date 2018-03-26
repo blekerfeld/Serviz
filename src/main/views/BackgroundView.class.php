@@ -6,7 +6,8 @@
 class pBackgroundView extends pAssistantView{
 
 	
-	public function renderChooserBackground($data, $section = ''){
+	public function renderChooser($data, $section = ''){
+
 		$count = 0;
 		$output = "<div class='btCard proper bt chooser'><div class='btTitle'>".BATCH_CHOOSE_LANGUAGE."</div>
 			".pTemplate::NoticeBox('fa-info-circle fa-12', BATCH_TR_DESC_START,  'notice-subtle')."
@@ -80,27 +81,27 @@ class pBackgroundView extends pAssistantView{
 				$('.select2').select2({});
 			});
 			$('.button-skip').click(function(){
-				$('.btLoadSide').load('".p::Url('?assistant/'.$section.'/skip/ajax')."', {'skip': ".$data['id']."}, function(){
+				$('.btLoadSide').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/skip/ajax')."', {'skip': ".$data['id']."}, function(){
 					serveCard();
 				});
 			});
 			$('.button-skip-close').click(function(){
-				$('.btLoadSide').load('".p::Url('?assistant/'.$section.'/skip/ajax')."', {'skip': ".$data['id']."}, function(){
+				$('.btLoadSide').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/skip/ajax')."', {'skip': ".$data['id']."}, function(){
 					serveCardForce('background');
 				});
 			});
 			$('.button-never').click(function(){
-				$('.btLoadSide').load('".p::Url('?assistant/'.$section.'/never/ajax')."', {'never': ".$data['id']."}, function(){
+				$('.btLoadSide').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/never/ajax')."', {'never': ".$data['id']."}, function(){
 					serveCard();
 				});
 			});
 			$('.button-handle').click(function(){
-				$('.btLoad').load('".p::Url('?assistant/'.$section.'/handle/ajax')."', {'answer': $('.answer').val()}, function(){
+				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/handle/ajax')."', {'answer': $('.answer').val()}, function(){
 					serveCard();
 				});
 			});
 			$('.button-back').click(function(){
-				$('.btLoad').load('".p::Url('?assistant/'.$section.'/reset/ajax')."', {'translations': $('.translations').val()}, function(){
+				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/reset/ajax')."', {'translations': $('.translations').val()}, function(){
 					serveCard();
 				});
 			});

@@ -5,6 +5,10 @@
 class pTableHandler extends pHandler{
 	// Used as last
 
+	public function renderEdit(){
+		echo "hoi";
+	}
+
 	public function render(){
 
 		// Generating the action bar

@@ -493,7 +493,7 @@ a.button .fa {
 }
 
 .actionbutton{
-  border-radius: 6px;
+  border-radius: 10px;
   background: #eee;
   padding: 3px;
   background: #eee;
@@ -506,6 +506,16 @@ a.button .fa {
   margin-left: 2px;
   margin-right: 2px;
   cursor: pointer!important;
+}
+
+.actionbutton.player-35{
+  width: 50px;
+  text-align: center;
+}
+
+.actionbutton.player-64{
+  width: 100px;
+  text-align: center;
 }
 
 .actionbutton .fa {
@@ -1968,6 +1978,10 @@ a.btAction, a.btAction.red-link{
   font-weight: normal;
   border-radius: 5px;
   font-size: 17px;
+}
+
+a.btAction.player{
+
 }
 
 a.pages{

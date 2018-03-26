@@ -39,7 +39,7 @@ class pAssistantHandler extends pHandler{
 		if($this->_section == 'translate' AND isset(pRegister::session()['btChooser-translate'])){
 			$this->_dataModel = new pDataModel('survey_words');
 	
-			$this->_data = $this->_dataModel->complexQuery("SELECT * FROM survey_words WHERE language != '".$_SESSION['btChooser-background']."' AND id NOT IN ( '" . @implode($_SESSION['btSkip-translate'], "', '") . "' ) LIMIT 1;")->fetchAll();
+			$this->_data = $this->_dataModel->complexQuery("SELECT * FROM survey_words WHERE language != '".$_SESSION['btChooser-background']."' AND id NOT IN ( '" . @implode($_SESSION['btSkip-do'], "', '") . "' ) LIMIT 1;")->fetchAll();
 		}
 		if($this->_section == 'revise' AND isset(pRegister::session()['btChooser-revise'])){
 			$this->_dataModel = new pDataModel('survey_answers');
@@ -60,6 +60,7 @@ class pAssistantHandler extends pHandler{
 			return $this->ajaxHandle();
 		elseif($action == 'never' AND isset(pRegister::arg()['ajax']))
 			return $this->ajaxNever();
+		
 		elseif($action == 'reset' AND isset(pRegister::arg()['ajax']))
 			return $this->ajaxReset();
 		else
@@ -73,15 +74,6 @@ class pAssistantHandler extends pHandler{
 			return $this->$function();
 	}
 
-
-	public function serveCardRevise(){
-		if(isset($this->_data[0]))
-		 	return $this->_view->cardRevise($this->_data[0], $this->_section);
-		 else
-		 	return $this->_view->cardReviseEmpty($this->_section);
-	}
-
-
 	public function ajaxHandle(){
 		$function = "ajaxHandle" . ucfirst($this->_section);
 		if(method_exists($this, $function))
@@ -92,18 +84,11 @@ class pAssistantHandler extends pHandler{
 		unset($_SESSION['btChooser-translate']);
 		unset($_SESSION['btChooser-background']);
 		unset($_SESSION['btChooser-revise']);
-		unset($_SESSION['btSkip-translate']);
-		unset($_SESSION['btSkip-background']);
+		unset($_SESSION['btSkip-do']);
+		unset($_SESSION['btSkip-ask']);
 		unset($_SESSION['btDone']);
 	}
 
-
-	public function ajaxHandleRevise(){
-		// Make this somehting else
-		$_SESSION['btSkip-revise'][] = $this->_data[0]['answerID'];
-
-		(new pDataModel('survey_answers'))->cleanCache('survey_questions_answers')->complexQuery("UPDATE survey_answers SET isMatch = '" .pRegister::post()['value'] . "', revised = 1 WHERE id = " . $this->_data[0]['answerID']);
-	}
 
 
 	public function ajaxSkip(){

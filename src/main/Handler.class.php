@@ -55,8 +55,8 @@ class pHandler{
 	// This is only the default behaviour of the catchAction, other objects might handle this differently!
 	public function catchAction($action, $view, $arg = null){
 
-
 		$this->_view = new $view(($arg == null ? $this->dataModel : $arg), $this->_prototype[$this->_section]);
+
 		// The different objects might handle this differently, default is looks for methods
 		if(isset(pRegister::arg()['ajax'])){
 			$method = "ajax".ucfirst($action);

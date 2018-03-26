@@ -187,7 +187,7 @@ class pTemplate{
 
           	<div class='page'>
             		<div class='inner-page'>
-                    <div class='btCard bt no-padding'>
+                    <div class='btCard  no-padding'>
                       <img class='siteLogo' src='<?php echo p::Url(CONFIG_LOCAL_LOGO); ?>' />
                     </div><br />
               			<?php echo new pMain; ?>

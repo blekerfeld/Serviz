@@ -14,6 +14,7 @@ class pParser{
 
 		$this->structure = $st->_prototype;
 		$this->_app = $st->_app;
+		self::$stApp = $this->_app;
 		$this->_section = $st->_prototype[$st->_section]['section_key'];
 		$this->_data =  $st->_prototype[$this->_section];
 		$this->_parent = $st;
@@ -121,7 +122,6 @@ class pParser{
 
 	// Passes on the action to the object
 	public function passOnAction($action){
-
 		if(pUser::checkPermission($this->_permission))
 			return $this->_handler->catchAction($action, $this->_data['view']);
 		else{
@@ -143,99 +143,6 @@ class pParser{
 
 		// There are six magic actions that are coordinated by this function:
 		// Those are: new, edit, remove, link-table, link-new, link-remove
-
-	
-		// Link table
-
-
-			if($linked != null){
-				// Guests
-				$this->_handler->changePagination(false);
-
-				@$guests = new pParser($this->structure, $this->structure[$this->structure[$this->_section]['incoming_links'][$linked]['section']], $this->_app);
-
-				// The needed data fields
-				$dfs = new pSet;
-
-				$dfs->add(new pDataField($this->_data['incoming_links'][$linked]['child'], DA_TABLE_LINKS_CHILD, '50%', 'select', true, true, true, '', false, new pSelector($this->structure[$this->_section]['table'], null, $this->_data['incoming_links'][$linked]['show_child'], true, $this->_section)));
-
-				if(isset($this->_data['incoming_links'][$linked]['fields']) and is_array($this->_data['incoming_links'][$linked]['fields']))
-					foreach($this->_data['incoming_links'][$linked]['fields'] as $field)
-						$dfs->add($field);
-
-				$dfs->add(new pDataField($this->_data['incoming_links'][$linked]['parent'], DA_TABLE_LINKS_PARENT, '', 'select', false, false, false, '', false));
-
-				// The needed actions
-				$actions = new pSet;
-
-				$actions->add(new pAction('remove-link', DA_DELETE_LINK, 'fa-12 fa-times', 'actionbutton', null, null, $this->_section, $this->_app));
-				$action_bar = new pSet;
-				$action_bar->add(new pAction('new-link', DA_TABLE_NEW_LINK, 'fa-12 fa-plus-circle', 'btAction float-left blue', null, null, $this->_section, $this->_app));
-
-				$guests->compile();
-
-				if(isset(pRegister::arg()['id']))
-					$guests->runData(pRegister::arg()['id']);
-
-				$linkTableObject = new pLinkTableHandler($this->structure, 'fa-link',  $this->structure[$this->_data['incoming_links'][$linked]['section']]['surface']."&#x205F; (&#x205F;".DA_TABLE_LINKS_PARENT."&#x205F;) &#x205F; ↔ &#x205F;".$this->_data['surface']." &#x205F;(&#x205F;".DA_TABLE_LINKS_CHILD."&#x205F;)", $this->_data['incoming_links'][$linked]['table'], 0, $dfs, $actions, $action_bar, false, $this->_section, $this->_app);
-
-
-				if(isset(pRegister::arg()['id'])){
-					if(!is_numeric(pRegister::arg()['id']))
-						$id = p::HashId(pRegister::arg()['id'], true)[0];
-					else
-						$id = pRegister::arg()['id'];
-
-					// The condition allows for up to two parents
-					$linkTableObject->setCondition("WHERE ((".$this->_data['incoming_links'][$linked]['child']." = '".$id."'" . (
-						(isset($this->_data['incoming_links'][$linked]['double_parent']) && $this->_data['incoming_links'][$linked]['double_parent'] == true) ? ") OR (". $this->_data['incoming_links'][$linked]['parent'] . " = '".$id."'" : '')."))");
-
-				}
-
-				$this->_handler->getData();
-				$linkTableObject->getData();
-				// Passing some very useful information to the linking table
-				$linkTableObject->passData($guests, $linked,$this->_handler->_data, $this->_data['incoming_links'][$linked]['show_parent'], $this->_data['incoming_links'][$linked]['show_child'], $this->_data['incoming_links'][$linked]['parent'], pRegister::arg()['id']);
-
-				if($name == 'link-table')
-					return $linkTableObject->render();
-				elseif($name == 'remove-link' && $ajax){
-					$dataModel = new pDataModel($this->_data['incoming_links'][$linked]['table'], new pSet);
-					return $dataModel->remove(0, 0, $_REQUEST['id']);
-				}
-				elseif($name == 'new-link'){
-					$action = new pMagicActionForm('new-link', $this->_data['incoming_links'][$linked]['table'], $dfs, $this->_data['save_strings'], $this->_app, $this->_section, $linkTableObject);
-
-					$action->compile();
-
-					$extra_fields = null;
-					if(isset($this->_data['incoming_links'][$linked]['fields']))
-						$extra_fields = $this->_data['incoming_links'][$linked]['fields'];
-
-
-					$action->newLinkPrepare($linked, $guests, $this->_data['incoming_links'][$linked]['show_parent'], $this->_data['incoming_links'][$linked]['show_child'], isset($this->_data['incoming_links'][$linked]['fields']), $extra_fields);
-
-					if($ajax)
-						return $action->newLinkAjax();
-					else
-						return $action->newLinkForm();
-				}
-			}
-
-
-		// Removing a link is like relativly simple!
-		elseif($name == 'remove-link' && $ajax && $linked != null){
-			
-		}
-
-		elseif($name == 'new-link' && $linked != null){
-
-			$fields = new pSet;
-			$fields->add(new pDataField($this->_data['incoming_links'][$linked]['child'], 'Child', '40%', 'select', true, true, true, '', false));
-
-			
-
-		}
 
 
 

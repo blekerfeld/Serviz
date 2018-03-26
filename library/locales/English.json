@@ -239,6 +239,21 @@
          "DA_CONFIG_SURFACE":"General settings",
          "DA_CONFIG_NAME":"Setting name",
          "DA_CONFIG_VALUE":"Setting value"
+      },
+      "manage":{
+         "MANAGE_LANG_NAME":"Language name",
+         "MANAGE_LANG_NEW":"New language",
+         "MANAGE_LANG_SURVEY":"Survey languages",
+         "MANAGE_LANG_LOCALE":"Language locale",
+         "MANAGE_LANG_CHOOSABLE":"Choosable for translation task",
+         "MANAGE_VER_NAME":"Version name (intern)",
+         "MANAGE_VER_NEW":"New version",
+         "MANAGE_VER_CNT":"Usage count",
+         "MANAGE_VER_SURVEY":"Survey versions",
+         "MANAGE_TRANS_TRANS":"Translation",
+         "MANAGE_TRANS_LANG":"into",
+         "MANAGE_TRANS_WORD":"for",
+         "MANAGE_TRANS_SURVEY":"Accepted translations"
       }
    }
 }
