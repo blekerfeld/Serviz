@@ -28,7 +28,7 @@ CREATE TABLE `config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `config` (`id`, `SETTING_NAME`, `SETTING_VALUE`, `SETTING_INPUT`) VALUES
-(1, 'ENABLE_QUERY_CACHING', '0',  'input'),
+(1, 'ENABLE_QUERY_CACHING', '1',  'input'),
 (2, 'QC_TIME',  '100000', 'input'),
 (3, 'SITE_TITLE', 'Example Dictionary', 'input'),
 (4, 'LOGO_TITLE', 'Example Dictionary', 'input'),
@@ -37,25 +37,19 @@ INSERT INTO `config` (`id`, `SETTING_NAME`, `SETTING_VALUE`, `SETTING_INPUT`) VA
 (13,  'ACTIVE_LOCALE',  'English',  'input'),
 (14,  'ENABLE_REGISTER',  '1',  'input'),
 (15,  'REGISTER_DEFAULT_ROLE',  '3',  'input'),
-(16,  'ENABLE_DEFINITIONS', '1',  'input'),
 (17,  'LOGO_SYMBOL',  'fab fa-wpforms', 'input'),
 (18,  'MAIL_FROM',  'noreply@localhost',  'input'),
 (19,  'ENABLE_ACTIVATION_MAIL', '1',  'input'),
 (20,  'ENABLE_TOS', '1',  'input'),
-(21,  'MAIL_FROM_NAME', 'Donut dictionary', 'input'),
 (22,  'REGISTER_ADMIN_ACTIVATION',  '0',  'input'),
 (23,  'PAGE_MARGIN',  '6%', 'input'),
 (24,  'ALWAYS_SHOW_LAST_UPDATE',  '0',  'input'),
 (25,  'PERMISSION_CREATE_LEMMAS', '-3', 'input'),
-(27,  'HEADER_CSS_BACKGROUND',  'background-color: #121D23;', 'input'),
-(28,  'HEADER_CSS_HSEARCH', '', 'input'),
 (29,  'ACCENT_COLOR_1', '#3454d1;', 'input'),
 (30,  'ACCENT_COLOR_2', '#C62B4A;', 'input'),
 (31,  'MENU_BREAK', '1',  ''),
-(32,  'WIKI_LOCALE',  'EN', 'input'),
-(33,  'TEST', '\\\'hoi\\',  'input'),
-(34,  'NUMBER_OF_DOORS_IN_THIS_HOUSE',  '\\\'3\\',  'input'),
-(35,  'ACCENT_COLOR_3', '#256BD7;', 'input');
+(35,  'ACCENT_COLOR_3', '#256BD7;', 'input'),
+(36,  'LOCAL_LOGO', 'serviz://library/staticimages/logoSurvey.png', '');
 
 DROP TABLE IF EXISTS `languages`;
 CREATE TABLE `languages` (
@@ -133,8 +127,8 @@ CREATE TABLE `survey_answers` (
   `word` int(11) NOT NULL,
   `word_group` int(11) NOT NULL,
   `answer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `match` int(11) NOT NULL,
-  `revised` int(11) NOT NULL DEFAULT '0',
+  `isMatch` tinyint(4) NOT NULL,
+  `revised` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `survey_session` (`survey_session`),
   KEY `word` (`word`),
@@ -144,51 +138,12 @@ CREATE TABLE `survey_answers` (
   CONSTRAINT `survey_answers_ibfk_3` FOREIGN KEY (`word_group`) REFERENCES `survey_word_groups` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `survey_answers` (`id`, `survey_session`, `word`, `word_group`, `answer`, `match`, `revised`) VALUES
-(1, 11, 1,  1,  '', 0,  0),
-(2, 12, 1,  1,  'skepp',  2147483647, 0),
-(3, 13, 1,  1,  'skepp',  1,  0),
-(4, 16, 1,  1,  'ske',  2147483647, 0),
-(5, 15, 1,  1,  'skepp',  1,  0),
-(6, 20, 1,  1,  'skepp',  1,  0),
-(7, 20, 2,  1,  'skep', 2147483647, 0),
-(8, 20, 3,  2,  'rädd', 1,  0),
-(9, 22, 1,  1,  'skepd',  0,  0),
-(10,  22, 2,  1,  'skepp',  0,  0),
-(11,  22, 3,  2,  'bang', 0,  0),
-(12,  23, 1,  1,  'sss',  2147483647, 0),
-(13,  23, 2,  1,  'skepp',  2147483647, 0),
-(14,  23, 3,  2,  'rädd', 1,  0),
-(15,  23, 1,  1,  'skepp',  1,  0),
-(16,  23, 2,  1,  'skep', 0,  0),
-(17,  23, 3,  2,  'rädd', 1,  0),
-(18,  24, 1,  1,  '', 0,  0),
-(19,  24, 2,  1,  '', 0,  0),
-(20,  24, 3,  2,  '', 0,  0),
-(21,  25, 1,  1,  '', 0,  0),
-(22,  25, 2,  1,  '', 0,  0),
-(23,  25, 3,  2,  '', 0,  0),
-(24,  26, 1,  1,  'skepp',  1,  0),
-(25,  26, 2,  1,  'skepp',  0,  0),
-(26,  26, 3,  2,  'bang', 0,  0),
-(27,  29, 1,  1,  'schiff', 0,  0),
-(28,  29, 2,  1,  'schiff', 0,  0),
-(29,  29, 3,  2,  'Bange?', 0,  0),
-(30,  30, 1,  1,  'g',  0,  0),
-(31,  30, 2,  1,  'ghdfhg', 0,  0),
-(32,  30, 3,  2,  '', 0,  0),
-(33,  31, 1,  1,  'asdfs',  0,  0),
-(34,  31, 2,  1,  'asdfsdf',  0,  0),
-(35,  31, 3,  2,  'asdf', 0,  0),
-(36,  33, 1,  1,  'skepp',  1,  0),
-(37,  33, 2,  1,  'skepp',  0,  0),
-(38,  33, 3,  2,  'rädd', 1,  0),
-(39,  34, 1,  1,  '', 0,  0),
-(40,  34, 2,  1,  '', 0,  0),
-(41,  34, 3,  2,  '', 0,  0),
-(42,  35, 1,  1,  'skepp',  1,  0),
-(43,  35, 2,  1,  'skepp',  0,  0),
-(44,  35, 3,  2,  'skepp',  0,  0);
+INSERT INTO `survey_answers` (`id`, `survey_session`, `word`, `word_group`, `answer`, `isMatch`, `revised`) VALUES
+(45,  42, 1,  1,  'schip',  1,  1),
+(46,  42, 2,  1,  'skeppr', 0,  1),
+(47,  42, 3,  2,  'rqdd', 0,  1),
+(48,  44, 1,  1,  'skeppppe', 0,  1),
+(49,  48, 4,  1,  'jurk', 0,  0);
 
 DROP TABLE IF EXISTS `survey_background_answers`;
 CREATE TABLE `survey_background_answers` (
@@ -204,82 +159,19 @@ CREATE TABLE `survey_background_answers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `survey_background_answers` (`id`, `survey_session`, `survey_question`, `answer`) VALUES
-(7, 3,  1,  'nederländska'),
-(8, 3,  3,  'Spanien'),
-(9, 4,  2,  'Deutsch'),
-(10,  4,  4,  'Berlin'),
-(11,  7,  1,  'nl'),
-(12,  7,  3,  ''),
-(13,  8,  1,  'nl'),
-(14,  8,  3,  'Berlin'),
-(15,  9,  1,  'nl'),
-(16,  9,  3,  'Stockholm'),
-(17,  10, 1,  'nl'),
-(18,  10, 3,  'Berlin'),
-(19,  11, 1,  'nl'),
-(20,  11, 3,  'Stockholm'),
-(21,  12, 1,  'nl'),
-(22,  12, 3,  'Groningen'),
-(23,  13, 1,  'nl'),
-(24,  13, 3,  'ssdsd'),
-(25,  14, 1,  'nl'),
-(26,  14, 3,  'Groningen'),
-(27,  15, 1,  'en'),
-(28,  15, 3,  ''),
-(29,  16, 1,  'nl'),
-(30,  16, 3,  'Stockholm'),
-(31,  18, 1,  '0'),
-(32,  19, 1,  'nl'),
-(33,  20, 1,  'nl'),
-(34,  20, 3,  ''),
-(35,  21, 1,  'nl'),
-(36,  22, 1,  'nl'),
-(37,  22, 3,  'Groningen'),
-(38,  23, 1,  'nl'),
-(39,  23, 3,  'dd'),
-(40,  24, 6,  'nl'),
-(41,  24, 7,  'nej'),
-(42,  25, 1,  'nl'),
-(43,  25, 3,  'Groningen'),
-(44,  25, 6,  'sv'),
-(45,  25, 7,  'nej'),
-(46,  26, 1,  'nl'),
-(47,  26, 3,  ''),
-(48,  26, 6,  'nl'),
-(49,  26, 7,  ''),
-(50,  27, 1,  'nl'),
-(51,  27, 3,  ''),
-(52,  28, 1,  'sv'),
-(53,  28, 3,  'Groningen'),
-(54,  29, 2,  '3'),
-(55,  29, 4,  'Berlin'),
-(56,  30, 1,  'nl'),
-(57,  30, 3,  'ghfdgh'),
-(58,  30, 6,  'nl'),
-(59,  30, 7,  ''),
-(60,  31, 1,  'nl'),
-(61,  31, 3,  'asdfdsf'),
-(62,  31, 6,  'nl'),
-(63,  31, 7,  ''),
-(64,  32, 1,  'nl'),
-(65,  33, 1,  'nl'),
-(66,  33, 3,  'Groningen'),
-(67,  33, 6,  'en'),
-(68,  33, 7,  'NEJ!'),
-(69,  34, 1,  'nl'),
-(70,  34, 3,  ''),
-(71,  34, 6,  'nl'),
-(72,  34, 7,  ''),
-(73,  35, 1,  'sv'),
-(74,  35, 3,  'groningen'),
-(75,  35, 6,  'nl'),
-(76,  35, 7,  'df'),
-(77,  36, 1,  'sv'),
-(78,  36, 3,  'Groningen'),
-(79,  36, 6,  'nl'),
-(80,  36, 7,  ''),
-(81,  37, 1,  'nl'),
-(82,  37, 3,  'groningen');
+(87,  41, 1,  'nl'),
+(88,  41, 3,  'Groningen'),
+(89,  42, 1,  'sv'),
+(90,  42, 3,  'Groningen'),
+(91,  43, 1,  'nl'),
+(92,  43, 3,  ''),
+(93,  44, 1,  'nl'),
+(94,  44, 3,  ''),
+(95,  45, 1,  'nl'),
+(96,  48, 2,  '3'),
+(97,  48, 4,  ''),
+(98,  50, 1,  'nl'),
+(99,  50, 3,  '');
 
 DROP TABLE IF EXISTS `survey_background_dropdown_options`;
 CREATE TABLE `survey_background_dropdown_options` (
@@ -323,8 +215,6 @@ INSERT INTO `survey_background_questions` (`id`, `question`, `is_slide`, `force_
 (3, 'Var bor du?',  0,  0,  '', 0,  'living', 2,  2,  'input'),
 (4, 'Wo wohnen Sie?', 0,  0,  '', 0,  'living', 3,  2,  'input'),
 (5, '.',  1,  0,  '# Välkommen! <br /> \r\n\r\nVi vill gärna veta hur bra svenskspråkiga är på att nederländska ord utan någon kontext. Därför är vi tacksamma att du fyller i enkäten!\r\n\r\nSjälvklart förblir du fullständigt anonym och datan kommer endast att användas för forskningen vid Universitet i Groningen (NL).\r\n\r\nFörst får du några bakgrundfrågor (ålder, modersmål etc) och sedan får du översätta både talade och skrivna ord. Sätt på volymen på din dator innan du börjar!\r\n\r\nTack för att du deltar! ', 0,  'slide1', 2,  -3, ''),
-(6, 'Tänkte du det var svårt?', 0,  0,  '', 1,  'status', 2,  -1, 'nl_SV'),
-(7, 'Tänkte du det var svårt?', 0,  0,  '', 1,  'status', 2,  -1, 'input'),
 (8, '', 1,  1,  'Tack så mycket för ditt bidrag!',  1,  'finalslide', 2,  9999, '');
 
 DROP TABLE IF EXISTS `survey_correct_translations`;
@@ -367,49 +257,38 @@ CREATE TABLE `survey_sessions` (
   `language` int(11) NOT NULL,
   `date_started` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `doneStatus` int(11) NOT NULL,
+  `survey_version` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `language` (`language`),
-  CONSTRAINT `survey_sessions_ibfk_1` FOREIGN KEY (`language`) REFERENCES `survey_languages` (`id`) ON DELETE CASCADE
+  KEY `survey_version` (`survey_version`),
+  CONSTRAINT `survey_sessions_ibfk_1` FOREIGN KEY (`language`) REFERENCES `survey_languages` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `survey_sessions_ibfk_2` FOREIGN KEY (`survey_version`) REFERENCES `survey_versions` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `survey_sessions` (`id`, `ipadress`, `location`, `language`, `date_started`, `doneStatus`) VALUES
-(1, '::1',  'Somewhere',  1,  '2018-03-24 11:52:21',  0),
-(2, '::1',  'Somewhere',  2,  '2018-03-24 12:02:27',  0),
-(3, '::1',  'Somewhere',  2,  '2018-03-24 12:18:09',  0),
-(4, '::1',  'Somewhere',  3,  '2018-03-24 12:28:12',  0),
-(5, '::1',  'Somewhere',  3,  '2018-03-24 12:39:58',  0),
-(6, '::1',  'Somewhere',  3,  '2018-03-24 12:44:22',  0),
-(7, '::1',  'Somewhere',  2,  '2018-03-24 13:53:04',  0),
-(8, '::1',  'Somewhere',  2,  '2018-03-24 14:12:58',  0),
-(9, '::1',  'Somewhere',  2,  '2018-03-24 14:15:24',  0),
-(10,  '::1',  'Somewhere',  2,  '2018-03-24 14:34:40',  0),
-(11,  '::1',  'Somewhere',  2,  '2018-03-24 14:58:53',  0),
-(12,  '::1',  'Somewhere',  2,  '2018-03-24 15:17:42',  0),
-(13,  '::1',  'Somewhere',  2,  '2018-03-24 15:18:07',  0),
-(14,  '::1',  'Somewhere',  2,  '2018-03-24 15:21:31',  0),
-(15,  '::1',  'Somewhere',  2,  '2018-03-24 15:26:58',  0),
-(16,  '::1',  'Somewhere',  2,  '2018-03-24 15:52:47',  0),
-(17,  '::1',  'Somewhere',  3,  '2018-03-24 16:28:36',  0),
-(18,  '::1',  'Somewhere',  2,  '2018-03-24 16:28:51',  0),
-(19,  '::1',  'Somewhere',  2,  '2018-03-24 16:43:11',  0),
-(20,  '::1',  'Somewhere',  2,  '2018-03-24 16:51:12',  0),
-(21,  '::1',  'Somewhere',  2,  '2018-03-24 16:55:40',  0),
-(22,  '::1',  'Somewhere',  2,  '2018-03-24 17:00:01',  0),
-(23,  '::1',  'Somewhere',  2,  '2018-03-24 17:01:36',  0),
-(24,  '::1',  'Somewhere',  2,  '2018-03-24 17:11:07',  0),
-(25,  '::1',  'Somewhere',  2,  '2018-03-24 17:19:10',  0),
-(26,  '::1',  'Somewhere',  2,  '2018-03-24 17:22:35',  0),
-(27,  '::1',  'Somewhere',  2,  '2018-03-24 17:27:02',  0),
-(28,  '::1',  'Somewhere',  2,  '2018-03-24 17:38:58',  0),
-(29,  '::1',  'Somewhere',  3,  '2018-03-24 17:39:32',  0),
-(30,  '::1',  'Somewhere',  2,  '2018-03-24 17:40:14',  0),
-(31,  '::1',  'Somewhere',  2,  '2018-03-24 17:41:21',  0),
-(32,  '::1',  'Somewhere',  2,  '2018-03-24 17:44:23',  0),
-(33,  '::1',  'Somewhere',  2,  '2018-03-24 17:48:09',  2147483647),
-(34,  '::1',  'Somewhere',  2,  '2018-03-24 17:49:52',  1),
-(35,  '::1',  'Somewhere',  2,  '2018-03-24 18:51:28',  1),
-(36,  '::1',  'Somewhere',  2,  '2018-03-25 11:00:27',  1),
-(37,  '::1',  'Somewhere',  2,  '2018-03-25 11:00:31',  2147483647);
+INSERT INTO `survey_sessions` (`id`, `ipadress`, `location`, `language`, `date_started`, `doneStatus`, `survey_version`) VALUES
+(40,  '::1',  'Somewhere',  3,  '2018-03-25 19:52:15',  2147483647, 1),
+(41,  '::1',  'Somewhere',  2,  '2018-03-25 19:53:46',  1,  1),
+(42,  '::1',  'Somewhere',  2,  '2018-03-25 19:54:10',  1,  1),
+(43,  '::1',  'Somewhere',  2,  '2018-03-25 23:48:48',  2147483647, 1),
+(44,  '::1',  'Somewhere',  2,  '2018-03-26 08:55:38',  2147483647, 1),
+(45,  '::1',  'Somewhere',  2,  '2018-03-26 09:21:33',  2147483647, 1),
+(46,  '::1',  'Somewhere',  2,  '2018-03-26 09:47:33',  2147483647, 1),
+(47,  '::1',  'Somewhere',  2,  '2018-03-26 09:48:04',  2147483647, 1),
+(48,  '::1',  'Somewhere',  3,  '2018-03-26 10:03:06',  1,  2),
+(49,  '::1',  'Somewhere',  2,  '2018-03-26 10:05:37',  0,  1),
+(50,  '::1',  'Somewhere',  2,  '2018-03-26 10:19:38',  0,  2);
+
+DROP TABLE IF EXISTS `survey_versions`;
+CREATE TABLE `survey_versions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `internName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `usageCount` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `survey_versions` (`id`, `internName`, `usageCount`) VALUES
+(1, 'A',  2),
+(2, 'B',  2);
 
 DROP TABLE IF EXISTS `survey_words`;
 CREATE TABLE `survey_words` (
@@ -418,18 +297,22 @@ CREATE TABLE `survey_words` (
   `audiofile` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `language` int(11) NOT NULL,
   `survey_word_group` int(11) NOT NULL,
+  `survey_version` int(11) NOT NULL,
   `internID` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `language` (`language`),
   KEY `survey_word_group` (`survey_word_group`),
+  KEY `survey_version` (`survey_version`),
   CONSTRAINT `survey_words_ibfk_1` FOREIGN KEY (`language`) REFERENCES `survey_languages` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `survey_words_ibfk_2` FOREIGN KEY (`survey_word_group`) REFERENCES `survey_word_groups` (`id`) ON DELETE CASCADE
+  CONSTRAINT `survey_words_ibfk_2` FOREIGN KEY (`survey_word_group`) REFERENCES `survey_word_groups` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `survey_words_ibfk_3` FOREIGN KEY (`survey_version`) REFERENCES `survey_versions` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `survey_words` (`id`, `word`, `audiofile`, `language`, `survey_word_group`, `internID`) VALUES
-(1, 'schip',  'schip.ogg',  1,  1,  'schip'),
-(2, '', 'schip.ogg',  1,  1,  'schipX'),
-(3, '', 'bang.ogg', 1,  2,  'bang');
+INSERT INTO `survey_words` (`id`, `word`, `audiofile`, `language`, `survey_word_group`, `survey_version`, `internID`) VALUES
+(1, 'schip',  'schip.ogg',  1,  1,  1,  'schip'),
+(2, '', 'schip.ogg',  1,  1,  1,  'schipX'),
+(3, '', 'bang.ogg', 1,  2,  1,  'bang'),
+(4, '', 'jurk.ogg', 1,  1,  2,  'jurkAUDIO');
 
 DROP TABLE IF EXISTS `survey_word_groups`;
 CREATE TABLE `survey_word_groups` (
@@ -481,4 +364,4 @@ CREATE TABLE `user_activation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
--- 2018-03-25 11:54:24
+-- 2018-03-26 10:41:29

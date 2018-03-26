@@ -36,15 +36,15 @@ class pSurveyExporter{
 			foreach($backgroundAnswers as $bA)
 				$tempRow[$this->_fields['bF_'.$bA['survey_question']]] = $bA['answer'];
 
-			$wordAnswers = $this->_dM->complexQuery("SELECT word, word_group, answer, survey_answers.match, revised FROM survey_answers WHERE survey_session = '".$session['id']."'")->fetchAll();
+			$wordAnswers = $this->_dM->complexQuery("SELECT word, word_group, answer, isMatch, revised FROM survey_answers WHERE survey_session = '".$session['id']."'")->fetchAll();
 
 			foreach($this->_groupFields as $gF)
 				$tempRow[$this->_fields['gF_'.$gF['id']]] = 0;
 
 			foreach($wordAnswers as $wA){
-				$tempRow[$this->_fields['wF_'.$wA['word']]] = ($wA['match'] == 1 ? '1' : ($wA['match'] == 1 ? $wA['match'] : $wA['answer']));
-				$tempRow['total'] += $wA['match'];
-				$tempRow[$this->_fields['gF_'.$wA['word_group']]] += $wA['match'];
+				$tempRow[$this->_fields['wF_'.$wA['word']]] = ($wA['isMatch'] == 1 ? '1' : ($wA['isMatch'] == 1 ? $wA['isMatch'] : $wA['answer']));
+				$tempRow['total'] += $wA['isMatch'];
+				$tempRow[$this->_fields['gF_'.$wA['word_group']]] += $wA['isMatch'];
 			}
 
 			

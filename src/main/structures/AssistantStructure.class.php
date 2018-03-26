@@ -22,11 +22,7 @@ class pAssistantStructure extends pStructure{
 		p::Out("</div>");
 
 		// Tooltipster time!
-		p::Out("<script type='text/javascript'>
-
-			$('.ttip').tooltipster({animation: 'grow'});
-
-			</script>");
+		p::Tooltipster();
 
 	}
 }

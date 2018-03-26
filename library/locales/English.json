@@ -165,7 +165,8 @@
          "BATCH_TR_GO_BACK":"Change language",
          "BATCH_TR_PER_TRANS":" already translated",
          "BATCH_TR_LEFT_TRANS":" left to translate",
-         "BATCH_TR_ALL":"There "
+         "BATCH_TR_ALL":"There ",
+         "BATCH_REVISE_EMPTY":"Well done, all current answers have been revised!"
       },
       "dictionary_admin":{
          "DA_OPTIONAL":"optional",

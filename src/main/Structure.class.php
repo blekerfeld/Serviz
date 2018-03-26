@@ -5,7 +5,7 @@
 
 class pStructure{
 
-	public $_name, $_meta, $_type, $_prototype, $_menu, $_menu_content, $_default_section, $_page_title, $_app, $_permission, $_dispatchStructure, $_tabs, $_error;
+	public $_name, $_meta, $_type, $_prototype, $_menu, $_menu_content, $_default_section, $_page_title, $_app, $_permission, $_dispatchStructure,  $_error;
 
 	public static $permission;
 
@@ -47,36 +47,6 @@ class pStructure{
 		pTemplate::setTitle($this->_page_title);
 	}
 
-
-	public function doTabs(){
-
-		pTemplate::setTabbed();
-
-		foreach($this->_prototype as $key => $app){
-			if(isset($app['tab_sub_items']))
-				foreach($app['tab_sub_items'] as $keySI => $item)
-					if(!pUser::checkPermission($this->itemPermission($item['section'])))
-						unset($this->_prototype[$key]['tab_sub_items'][$keySI]);
-		}
-
-		if(isset($this->_meta['tabs']) AND p::NoAjax()){
-			foreach($this->_prototype as $app){
-				$addArgs = '';
-				if(isset($app['tab_addargs']))
-					foreach($app['tab_addargs'] as $arg)
-						if(isset(pRegister::arg()[$arg]))
-							$addArgs .= pRegister::arg()[$arg].'/';
-				if(isset($app['show_tab']) AND $app['show_tab'] == true)
-					if(pUser::checkPermission($this->itemPermission($app['section_key'])) OR isset($app['tab_sub_items'])){
-						$this->_tabs->addLink($this->_app . '_' . $app['section_key'], (isset($app['tab_name']) ? $app['tab_name'] : $app['surface']), ((isset($app['tab_link']) ? $app['tab_link'] : p::Url('?'.$this->_app.'/'.$app['section_key'])) . $addArgs) , ($this->_section == $app['section_key'] OR (isset($app['tab_sections']) AND in_array($this->_section, $app['tab_sections']))), (isset($app['tab_sub_items']) ? $app['tab_sub_items'] : NULL), (isset($app['tab_class']) ? $app['tab_class'] : ''));
-					}
-			}
-			p::Out($this->_tabs);
-		}
-	}
-
-
-
 	public function load(){
 		try {
 			// Loading the sturcture
@@ -115,9 +85,6 @@ class pStructure{
 
 			$this->_prototype['permission'] = $this->_permission;
 
-			if(isset($this->_meta['tabs']))
-				$this->_tabs = $this->_meta['tabs'];
-
 		} catch (Exception $e) {
 			die();
 		}
@@ -125,8 +92,6 @@ class pStructure{
 	}
 
 	public function render(){
-
-		$this->doTabs();
 
 		// If there is an offset, we need to define that
 		if(isset(pRegister::arg()['offset']))

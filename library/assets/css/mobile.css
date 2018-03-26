@@ -1,6 +1,10 @@
 /* Responsive theming */
 @media only screen and (max-width: 700px) {
 
+  .contents{
+    flex: 0;
+  }
+
   .holder{
     margin: 0!important;
     padding: 0!important;
@@ -56,13 +60,10 @@
     display: inline;
    }
 
-
-
-
    div.ulWrap, div.outerwrap{
       margin-left: 0px;
       margin-right: 0px;
-      padding-top: 30px;
+      margin: 0;
    }
 
    div.ulWrap.fixed{

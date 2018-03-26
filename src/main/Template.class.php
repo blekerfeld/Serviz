@@ -6,15 +6,11 @@ class pTemplate{
 
 	protected $_stylesheets, $_scripts;
 
-	public static $title = CONFIG_SITE_TITLE, $orgTitle = CONFIG_SITE_TITLE, $_searchBoxShown = false, $outside, $no_border = false, $has_tabs = false;
+	public static $title = CONFIG_SITE_TITLE, $orgTitle = CONFIG_SITE_TITLE, $_searchBoxShown = false, $outside, $has_tabs = false;
 
 	public static function setTitle($title){
 		self::$title = $title . ' - ' . CONFIG_SITE_TITLE;
 	}
-
-  public static function setNoBorder(){
-    self::$no_border = true;
-  }
 
   public static function setBorder(){
       self::$no_border = false;
@@ -182,7 +178,7 @@ class pTemplate{
         <?php echo self::$outside; ?>
       </div>
       <div class='holder'>
-      <div class=<?php echo "'".(self::$no_border ? 'no-border no-border-h no-background' : '')." ".(self::$has_tabs ? 'tabbed' : '')." "."outerwrap'"; ?>> 
+      <div class=<?php echo "'no-border no-border-h no-background ".(self::$has_tabs ? 'tabbed' : '')." "." outerwrap'"; ?>> 
           <div class="ulWrap">
 
             <noscript>
@@ -192,7 +188,7 @@ class pTemplate{
           	<div class='page'>
             		<div class='inner-page'>
                     <div class='btCard bt no-padding'>
-                      <img class='siteLogo' src='<?php echo p::Url('serviz://library/staticimages/logoSurvey.png'); ?>' />
+                      <img class='siteLogo' src='<?php echo p::Url(CONFIG_LOCAL_LOGO); ?>' />
                     </div><br />
               			<?php echo new pMain; ?>
             		</div>
@@ -207,13 +203,12 @@ class pTemplate{
       <div class='float-right small'>
          <?php if(!pUser::noGuest()){ echo $this->login(); } ?>
         <?php echo $this->userBox(); ?></div>
-      <span class='mobilehide'> 
         <span class='float-left'>
          <?php 
           $head = file_get_contents(sprintf('.git/refs/heads/%s', 'master'));
           echo "<a href='https://github.com/blekerfeld/serviz/commit/$head' class='tooltip'><i class='fab fa-github fa-10'></i> /serviz</a> 1.0.1</a>"; 
         ?> / Thomas de Roo</span><span class='float-right'>
-         </span></span><br />
+         </span><br />
     </div>
   </body>
  </html><?php

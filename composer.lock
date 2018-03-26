@@ -4,44 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bda4acf7c01623d801f394510196aa1",
+    "content-hash": "dd7eae8591c33249bf05891f083186ee",
     "packages": [
-        {
-            "name": "delight-im/str",
-            "version": "v2.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/delight-im/PHP-Str.git",
-                "reference": "ea3e40132e9d4ce27da337dae6286f2478b15f56"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/delight-im/PHP-Str/zipball/ea3e40132e9d4ce27da337dae6286f2478b15f56",
-                "reference": "ea3e40132e9d4ce27da337dae6286f2478b15f56",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Delight\\Str\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Convenient object-oriented operations on strings",
-            "homepage": "https://github.com/delight-im/PHP-Str",
-            "keywords": [
-                "string",
-                "strings"
-            ],
-            "time": "2016-07-27T22:19:41+00:00"
-        },
         {
             "name": "erusev/parsedown",
             "version": "1.7.1",

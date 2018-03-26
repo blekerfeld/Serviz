@@ -3,41 +3,40 @@
 // file: rulesheet.struct.php
 	// The structure of the rule file system
 
+$saveStrings = [null, SAVE, SAVING, SAVED_EMPTY, SAVED_ERROR, SAVED, SAVE_LINKBACK];
+$action_remove = ['remove', DA_DELETE, 'fa-trash', 'ttip-sub', null, null];
+$action_edit = ['edit', DA_EDIT, 'fa-edit', 'ttip-sub', null, null];
 
-$saveStrings = array(null, SAVE, SAVING, SAVED_EMPTY, SAVED_ERROR, SAVED, SAVE_LINKBACK);
-
-return array(
-		'MAGIC_META' => array(
+return [
+		'MAGIC_META' => [
 			'title' => DA_TITLE,
 			'icon' => 'fa-list',
 			'default_permission' => 0,
-		),
-		'default' => array(
+		],
+		'default' => [
 			'section_key' => 'default',
 			'permission' => 0,
 			'icon' => 'fa-circle-o',
 			'type' => 'pAssistantHandler',
-			'view' => 'pView',
+			'view' => 'pAssistantView',
 			'table' => 'config',
 			'surface' => "",
 			'condition' => false,
 			'disable_enter' => true,
 			'items_per_page' => 20,
 			'disable_pagination' => true,
-			'actions_item' => array(
-				
-			),
-			'actions_bar' => array(
-				
-			),
+			'actions_item' => [],
+			'actions_bar' => [],
 			'save_strings' => $saveStrings,
-		),
-		'background' => array(
+		],
+		'background' => [
 			'section_key' => 'background',
 			'permission' => 0,
 			'icon' => new pIcon('translate', 24),
-			'type' => 'pAssistantHandler',
-			'view' => 'pView',
+			'type' => 'pBackgroundHandler',
+			'view' => 'pBackgroundView',
+			'is_admin' => false,
+			'is_assistant' => true,
 			'table' => 'survey_background_questions',
 			'surface' => BATCH_TRANSLATE_LONG,
 			'desc' => BATCH_TRANSLATE_DESC,
@@ -45,54 +44,73 @@ return array(
 			'disable_enter' => true,
 			'items_per_page' => 20,
 			'disable_pagination' => true,
-			'actions_item' => array(
-				
-			),
-			'actions_bar' => array(
-				
-			),
+			'actions_item' => [],
+			'actions_bar' => [],
 			'save_strings' => $saveStrings,
-		),
+		],
 		'translate' => array(
 			'section_key' => 'translate',
 			'permission' => 0,
 			'icon' => new pIcon('translate', 24),
-			'type' => 'pAssistantHandler',
-			'view' => 'pView',
-			'table' => 'words',
+			'type' => 'pTranslationTaskHandler',
+			'view' => 'pAssistantView',
+			'table' => 'survey_words',
 			'surface' => BATCH_TRANSLATE_LONG,
 			'desc' => BATCH_TRANSLATE_DESC,
 			'condition' => false,
+			'is_admin' => false,
+			'is_assistant' => true,
 			'disable_enter' => true,
 			'items_per_page' => 20,
 			'disable_pagination' => true,
-			'actions_item' => array(
-				
-			),
-			'actions_bar' => array(
-				
-			),
+			'actions_item' => [],
+			'actions_bar' => [],
 			'save_strings' => $saveStrings,
 		),
-		'revise' => array(
+		'revise' => [
 			'section_key' => 'revise',
 			'permission' => -3,
 			'icon' => new pIcon('translate', 24),
-			'type' => 'pAssistantHandler',
-			'view' => 'pView',
-			'table' => 'words',
+			'type' => 'pRevisionAssistantHandler',
+			'view' => 'pAssistantView',
+			'table' => 'survey_answers',
 			'surface' => "Revise",
+			'is_admin' => true,
+			'is_assistant' => true,
 			'desc' => BATCH_TRANSLATE_DESC,
 			'condition' => false,
 			'disable_enter' => true,
 			'items_per_page' => 20,
 			'disable_pagination' => true,
-			'actions_item' => array(
-				
-			),
-			'actions_bar' => array(
-				
-			),
+			'actions_item' => [],
+			'actions_bar' => [],
 			'save_strings' => $saveStrings,
-		),
-	);
+		],
+		'surveywords' => [
+			'section_key' => 'surveywords',
+			'menu' => '',
+			'icon' => 'source-commit-end-local',
+			'type' => 'pTableHandler',
+			'desc' => '',
+			'surface' => DA_LEXCAT_TITLE,
+			'condition' => false,
+			'is_admin' => true,
+			'is_assistant' => false,
+			'items_per_page' => 7,
+			'disable_pagination' => false,
+			'table' => 'survey_words',
+			'datafields' => [
+				new pDataField('word', DA_LEXCAT_NAME, 'auto', 'input', true, true, true, 'medium', false),
+				new pDataField('internID', DA_LEXCAT_NAME, 'auto', 'input', true, true, true, 'medium', false),
+				new pDataField('audiofile', DA_ABBR, 'auto', 'input', true, true, true, 'tooltip medium em', false),
+			],
+			'actions_item' => [
+				'edit' => $action_edit,
+				'remove' => $action_remove,
+			],
+			'actions_bar' => [
+				'new' => ['new', DA_LEXCAT_ADD, 'fa-plus-circle fa-12', 'btAction no-float small', null, null],
+			],
+			'save_strings' => $saveStrings,
+		],
+	];

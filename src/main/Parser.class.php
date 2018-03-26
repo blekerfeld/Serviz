@@ -16,7 +16,6 @@ class pParser{
 		$this->_app = $st->_app;
 		$this->_section = $st->_prototype[$st->_section]['section_key'];
 		$this->_data =  $st->_prototype[$this->_section];
-		$this->_tabs = $st->_tabs;
 		$this->_parent = $st;
 
 		// Loading the permission

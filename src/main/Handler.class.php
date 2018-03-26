@@ -24,8 +24,6 @@ class pHandler{
 		$this->_offset = 0;
 		$this->_itemsperpage = $parent->_data['items_per_page'];
 
-		$this->_tabs = $parent->_parent->_tabs;
-
 		// If there are none data fields specified, we need to get all.
 		if(empty($this->_dfs->get()))
 			$this->_dfs = null;
