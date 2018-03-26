@@ -5,7 +5,7 @@
 
 class pRevisionView extends pAssistantView{
 
-	public function renderChooserRevise($data, $section = ''){
+	public function renderChooser($data, $section = ''){
 		$count = 0;
 		$output = "<div class='btCard proper bt chooser'><div class='btTitle'>".BATCH_CHOOSE_LANGUAGE."</div>
 			".pTemplate::NoticeBox('fa-info-circle fa-12', BATCH_TR_DESC_START,  'notice-subtle')."

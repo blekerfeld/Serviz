@@ -81,8 +81,8 @@ class pAssistantHandler extends pHandler{
 	}
 
 	public function ajaxReset(){
-		unset($_SESSION['btChooser-translate']);
-		unset($_SESSION['btChooser-background']);
+		unset($_SESSION['btChooser-do']);
+		unset($_SESSION['btChooser-ask']);
 		unset($_SESSION['btChooser-revise']);
 		unset($_SESSION['btSkip-do']);
 		unset($_SESSION['btSkip-ask']);

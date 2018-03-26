@@ -5,7 +5,7 @@
 
 class pAssistantView extends pView{
 
-	public function renderChooserDefault($data, $section = ''){
+	public function renderChooser($data, $section = ''){
 
 		p::Out("<div class='btCard proper bt chooser'><div class='btTitle'>".(new pIcon('fa-question-circle'))." ".BATCH_CHOOSE_ASSISTANT."</div>
 			<div class='btSource'>		
