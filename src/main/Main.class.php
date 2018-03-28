@@ -162,7 +162,7 @@ class pMain{
 			return false;
 
 		// Let's create a variable to make things a little more readable
-		$languagePath = self::FromRoot('library/locales/' . strtolower($language) . '.json');
+		$languagePath = self::FromRoot('library/locales/' . $language . '.json');
 
 		// Does this language exist?
 		if(!file_exists($languagePath))

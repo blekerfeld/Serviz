@@ -26,7 +26,7 @@ class pTranslationTaskView extends pAssistantView{
 			<div class='btCard transCard proper bt'>
 				<div class='btTitle'>
 				<a class='btFloat float-right button-back ttip' href='javascript:void();'>
-						".(new pIcon('fa-level-up'))." ".BATCH_TR_GO_BACK."
+						".BATCH_RESTART." ".(new pIcon('fa-level-up-alt'))."
 					</a>
 				".BATCH_TRANSLATE."</div>
 				<div class='btSource'>
@@ -69,11 +69,10 @@ class pTranslationTaskView extends pAssistantView{
 				});
 			});
 			$('.button-back').click(function(){
-				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/reset/ajax')."', {'translations': $('.translations').val()}, function(){
-					serveCard();
+				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/reset/ajax')."', {}, function(){
+					loadTranslate();
 				});
 			});
-			
 		</script>
 		");
 	}

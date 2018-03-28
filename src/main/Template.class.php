@@ -200,14 +200,16 @@ class pTemplate{
     </div>
     </div>
     <div class='absolute_footer'>
+      <img class='logo' src='<?php echo p::Url("serviz://library/staticimages/logo.png"); ?>'/><br /><br />
       <div class='float-right small'>
          <?php if(!pUser::noGuest()){ echo $this->login(); } ?>
         <?php echo $this->userBox(); ?></div>
+
         <span class='float-left'>
          <?php 
-          $head = file_get_contents(sprintf('.git/refs/heads/%s', 'master'));
-          echo "<a href='https://github.com/blekerfeld/serviz/commit/$head' class='tooltip'><i class='fab fa-github fa-10'></i> /serviz</a> 1.0.1</a>"; 
-        ?> / Thomas de Roo</span><span class='float-right'>
+          echo "<a href='https://github.com/blekerfeld/serviz' class='tooltip'><i class='fab fa-github fa-10'></i> /serviz</a> 1.0.1</a>"; 
+        ?> / Thomas de Roo<br />
+        </span><span class='float-right'>
          </span><br />
     </div>
   </body>

@@ -9,9 +9,9 @@ class pBackgroundView extends pAssistantView{
 	public function renderChooser($data, $section = ''){
 
 		$count = 0;
-		$output = "<div class='btCard proper bt chooser'><div class='btTitle'>".BATCH_CHOOSE_LANGUAGE."</div>
-			".pTemplate::NoticeBox('fa-info-circle fa-12', BATCH_TR_DESC_START,  'notice-subtle')."
-			<div class='btSource'>			<div class='btButtonBar'>
+		$output = "<div class='btCard proper bt chooser'><div class='btTitle'>".BATCH_CHOOSE_LANGUAGE_Y."</div>
+			
+			<div class='btSource'>			
 			<div class='btChooser'>";
 
 		foreach(pDataModel::getRecordsOrdered('survey_languages', 1, " choosable = 1 ") as $value){
@@ -21,7 +21,7 @@ class pBackgroundView extends pAssistantView{
 				</div>";
 		}
 
-		p::Out($output."</div></div></div></div>");
+		p::Out($output."</div></div></div>");
 		
 	}
 
@@ -35,7 +35,7 @@ class pBackgroundView extends pAssistantView{
 				<div class='btCard transCard proper bt'>
 					<div class='btTitle'>
 					<a class='btFloat float-right button-back ttip' href='javascript:void();'>
-							".(new pIcon('fa-level-up'))." ".BATCH_TR_GO_BACK."
+							".BATCH_RESTART." ".(new pIcon('fa-level-up-alt'))."
 						</a>
 					<span class='btLanguage inline-title'><strong>".$data['question']."</strong></span></div>
 					<div class='btTranslate'>
@@ -61,6 +61,10 @@ class pBackgroundView extends pAssistantView{
 		else{
 			p::Out("
 				<div class='btCard transCard proper bt'>
+
+					<a class='btFloat float-right button-back ttip' href='javascript:void();'>
+							".BATCH_RESTART." ".(new pIcon('fa-level-up-alt'))."
+						</a>
 					<span class='inline-icon'>".(new pIcon('information', 40))."</span>
 					".p::MarkDown($data['slideText'])."
 
@@ -101,8 +105,8 @@ class pBackgroundView extends pAssistantView{
 				});
 			});
 			$('.button-back').click(function(){
-				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/reset/ajax')."', {'translations': $('.translations').val()}, function(){
-					serveCard();
+				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/reset/ajax')."', {}, function(){
+					loadBackground();
 				});
 			});
 			

@@ -146,6 +146,7 @@
       },
       "assistant":{
          "BATCH_CHOOSE_LANGUAGE":"Pick a language",
+         "BATCH_CHOOSE_LANGUAGE_Y":"Pick your language",
          "BATCH_OTHER_LANGUAGES":"In other languages",
          "BATCH_CHOOSE_ASSISTANT":"What do you want to do?",
          "BATCH_TITLE":"Assistant",
@@ -155,6 +156,7 @@
          "BATCH_TRANSLATE_DESC":"Translate lemmas that don't have any translations in a specific language yet.",
          "BATCH_CONTINUE":"Next",
          "BATCH_DONE":"Done",
+         "BATCH_RESTART":"Go back",
          "BATCH_TR_UNTRANS":"Untranslatable",
          "BATCH_TR_SKIP":"Skip",
          "BATCH_TR_PLACEHOLDER":"Add a translation",

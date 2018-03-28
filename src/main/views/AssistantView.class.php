@@ -58,13 +58,8 @@ class pAssistantView extends pView{
 	}
 
 	public function wordAudioPlayer($file, $size){
-		p::Out("<script type='text/javascript'>
-				function playSound(){
-					$.playSound('".p::Url('serviz://library/audio/'.$file)."');
-				}
-				setTimeout(function(){ playSound() }, 500);
-				</script>");
-		return "<a class='tooltip actionbutton player-".$size."' href='javascript:void();' onClick='playSound();'>".(new pIcon('volume-high', $size))."</a>";
+		p::Out('<script>createjs.Sound.registerSound("'.p::Url('serviz://library/audio/' . $file).'", "stimulus");window.setTimeout(createjs.Sound.play("stimulus"), 1200);</script>');
+		return "<a class='tooltip actionbutton player-".$size."' href='javascript:void();' onclick='createjs.Sound.play(\"stimulus\");'>".(new pIcon('volume-high', $size))."</a>";
 	}
 
 	

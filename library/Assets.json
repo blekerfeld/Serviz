@@ -2,6 +2,7 @@
    "javascript":[
       "index.js",
       "vendors\/jquery.js",
+      "vendors\/createjs.js",
       "vendors\/jquery.pace.js",
       "vendors\/jquery.tooltipster.js",
       "vendors\/jquery.playsound.js",

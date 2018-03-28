@@ -8,7 +8,7 @@ class pLoginView extends pView{
 
 	public function loginForm(){
 		$output = '';
-		$output .= "<div class='btCard admin ".(isset(pRegister::arg()['ajaxLoad']) ? 'no-padding' : '')."' style=''>
+		$output .= "<div class='btCard ".(isset(pRegister::arg()['ajaxLoad']) ? 'no-padding' : 'proper bt')."' style=''>
 		".(!isset(pRegister::arg()['ajaxLoad']) ? "<div class='btTitle'>".(new pIcon('account-key'))." ".LOGIN_TITLE."</div>" : "")."
 		<div class='saving hide loaddots'>".pTemplate::loadDots()."</div>
 		<div class='btForm'>

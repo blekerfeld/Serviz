@@ -21,6 +21,12 @@ class pTranslationTaskHandler extends pAssistantHandler{
 		return false;
 	}
 
+	public function ajaxReset(){
+		unset($_SESSION['btChooser-do']);
+		unset($_SESSION['btSkip-do']);
+		unset($_SESSION['btDone']);
+	}
+
 	public function serveCard(){
 		
 		if(isset($this->_data[0]))

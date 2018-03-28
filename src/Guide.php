@@ -13,17 +13,7 @@ return [
 
 		],
 	],
-	'home' => [
-		'page_title' => 'Home',
-		'default_section' => 'home',
-		'arguments' => [
-		],
-		'override_structure_type' => 'pSimpleStructure',
-		'permission' => 999,
-		'view' => 'pHomeView',
-		'metadata' => [],
-		'menu' => 'home',
-	],
+	
 	
 	'auth' => [
 		'page_title' => 'Login',
@@ -60,7 +50,7 @@ return [
 
 	'manage' => [
 		'page_title' => 'manage',
-		'default_section' => 'surveywords',
+		'default_section' => 'words',
 		'override_structure_type' => 'pAdminStructure',
 		'arguments' => [
 			0 => 'section',
@@ -72,20 +62,14 @@ return [
 
 
 	'MAGIC_MARKDOWN' => [
-		'DIS' => [
-			'app' => 'docs',
-			'url' => 'DIS'
-		],
+		
 	],
 
 	'MAGIC_MARKDOWN_TITLES' => [
-		'DIS' => 'Inflection Syntax',
+		
 	],
 
 	'MAGIC_MARKDOWN_APPS' => [
-		'docs' => [
-			'name' => 'Documentation',
-			'icon' => 'fa-question-circle'
-		],
+		
 	], 
 ];

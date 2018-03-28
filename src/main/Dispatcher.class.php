@@ -16,7 +16,7 @@ class pDispatcher {
 	public function __construct($overrideQueryStringIfEmpty = false){
 		$query = $_SERVER['QUERY_STRING'];
 		if($overrideQueryStringIfEmpty == true AND $query == '')
-				$query = 'home';
+				$query = 'survey';
 		$this->query = $query;
 		pRegister::queryString($this->query);		
 		// Let's pack some superglobals inside pRegister
