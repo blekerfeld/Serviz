@@ -19,7 +19,7 @@ Please note that Serviz still lacks a lot of features. At this moment you should
 
 * Clone the git repository to a web server (alternativly just download its contents)
 * Run `composer install` in the Serviz directory.
-* Edit config.php to fit your configuaration (database usernames etc.)
+* Edit Configuration.php-template to fit your configuaration (database usernames etc.) and save it as `Configuration.php` (important)
 * Import `Database.sql` to the database
 * It should work now.
 

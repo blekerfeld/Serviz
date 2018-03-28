@@ -1,4 +1,7 @@
 -# Serviz cache
 *.cache
 vendor
+Configuration.php
+composer.lock
 .composerlock
+composerlock

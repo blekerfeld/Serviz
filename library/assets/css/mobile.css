@@ -214,6 +214,15 @@
       margin: 0px!important;
      }
 
+     .btCard.contains-logo {
+        text-align: center;
+     }
+
+
+     .btCard.contains-logo img {
+        margin: 0 auto;
+     }
+
      div.hSearch .load-hide{
       display: none;
       float: none;
