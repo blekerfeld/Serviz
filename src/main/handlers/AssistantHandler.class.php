@@ -50,7 +50,7 @@ class pAssistantHandler extends pHandler{
 		
 		if($this->_doesNotExist)
 			return p::Out("WHOOOPS!");
-		if($this->_survey['is_closed'] == 1)
+		if(isset($this->_survey['survey_status']) AND $this->_survey['survey_status'] == 0)
 			return $this->_view->renderClosed();
 
 		return $this->_view->render($this->_section, [], $ajax);
