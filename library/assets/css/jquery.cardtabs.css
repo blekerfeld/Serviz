@@ -441,3 +441,18 @@ div.card-tabs-bar.wordsearch.nomargin-preview{
 	margin-top: -5px;
 	margin-left: 0px;
 }
+div.card-tabs-bar.round {
+	margin: 0;
+	border: none;
+}
+
+div.card-tabs-bar.round a{
+	margin: 0;
+}
+
+div.card-tabs-bar.round a.active{
+	margin: 0;
+	border: 2px solid #ddd;
+	border-radius: 3px;
+	background: #eee;
+}
