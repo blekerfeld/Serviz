@@ -257,6 +257,7 @@
          "MANAGE_VER_SURVEY":"Survey versions",
          "MANAGE_TRANS_TRANS":"Answer",
          "MANAGE_TRANS_LANG":"Language",
+         "MANAGE_TRANS_ADD":"Add new possible answer",
          "MANAGE_TRANS_WORD":"Stimulus",
          "MANAGE_TRANS_SURVEY":"Accepted answers",
          "MANAGE_STIM_ID":"Intern name",
@@ -267,6 +268,7 @@
          "MANAGE_STIM_PLAYSOUND":"Play sound",
          "MANAGE_STIM_GROUPS":"Stimulus groups",
          "MANAGE_STIM_GROUPS_NAME":"Group name",
+         "MANAGE_STIM_GROUPS_ADD":"Add a stimulus group",
          "MANAGE_BQ_TITLE":"Background questions",
          "MANAGE_BQ_Q":"Question",
          "MANAGE_BQ_ADD":"Add a question",
@@ -278,7 +280,8 @@
          "MANAGE_DD_TITLE":"Dropdown options",
          "MANAGE_DD_OPTION":"Dropdown options",
          "MANAGE_DD_VALUE":"Codefied value",
-         "MANAGE_DD_ID":"Dropdown key"
+         "MANAGE_DD_ID":"Dropdown key",
+         "MANAGE_DD_ADD":"Add dropdown option"
       },
       "survey":{
          "SURVEY_STIMULI":"Stimuli",
