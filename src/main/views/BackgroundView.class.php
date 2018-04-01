@@ -71,10 +71,12 @@ class pBackgroundView extends pAssistantView{
 				if($data['order_swap'] == 1)
 					$preprocessedOptions = array_reverse($preprocessedOptions);
 				
-				p::Out("<span class='btNative'><select class='btInput answer full-width select-lexcat select2 xxmedium' style='width: 100%'>");
+				p::Out("<span class='btNative'><select class='btInput answer full-width select-lexcat ". (p::StartsWith($data['type'], 'selector_') ? 'selectorT' : 'select2') ." xxmedium' style='width: 100%'>");
 				foreach($preprocessedOptions as $opt)
 					p::Out("<option value='".$opt['dropdown_value']."'>".$opt['dropdown_option']."</option>");
 				p::Out("</select></span>");
+				if(p::StartsWith($data['type'], 'selector_'))
+					p::Out("<script type='text/javascript'>$('.selectorT').selectorTabs({class: 'round'});</script>");
 			}
 			p::Out("
 					</div>
