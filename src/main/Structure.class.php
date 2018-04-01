@@ -33,9 +33,6 @@ class pStructure{
 		if(isset(pRegister::arg()['section']) AND array_key_exists(pRegister::arg()['section'], $this->_prototype))
 			$this->_section = pRegister::arg()['section'];
 		else{
-
-			$this->_error = pTemplate::NoticeBox('fa-info-circle fa-12', DA_SECTION_ERROR, 'danger-notice');
-
 			$this->_section = $this->_default_section;
 		}
 

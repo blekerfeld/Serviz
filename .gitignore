@@ -1,6 +1,7 @@
 -# Serviz cache
 *.cache
 vendor
+library/output/*.csv
 Configuration.php
 composer.lock
 .composerlock

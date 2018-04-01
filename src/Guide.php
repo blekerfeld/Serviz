@@ -13,6 +13,19 @@ return [
 
 		],
 	],
+
+	'csv' => [
+		'page_title' => 'Home',
+		'default_section' => 'home',
+		'arguments' => [
+			'surveyID',
+		],
+		'override_structure_type' => 'pSimpleStructure',
+		'permission' => 999,
+		'view' => 'pCSVView',
+		'metadata' => [],
+		'menu' => 'home',
+	],
 	
 	
 	'auth' => [
@@ -41,16 +54,17 @@ return [
 		'default_section' => 'ask',
 		'override_structure_type' => 'pAssistantStructure',
 		'arguments' => [
-			0 => 'section',
-			1 => 'action',
-			2 => 'id',
+			0 => 'survey',
+			1 => 'section',
+			2 => 'action',
+			3 => 'id',
 		],
 		'menu' => 'dictionary-admin',
 	],
 
 	'manage' => [
 		'page_title' => 'manage',
-		'default_section' => 'words',
+		'default_section' => 'surveys',
 		'override_structure_type' => 'pAdminStructure',
 		'arguments' => [
 			0 => 'section',

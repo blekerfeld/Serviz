@@ -2,7 +2,7 @@
 // Serviz 1.0.1 - Thomas de Roo - Licensed under MIT
 // file: TableObject.class.php
 
-class pTableHandler extends pHandler{
+class pMySurveysHandler extends pHandler{
 	// Used as last
 
 	
@@ -18,11 +18,11 @@ class pTableHandler extends pHandler{
 			$pages = '';
 
 
-		p::Out("<div class='btCard admin'>
+		p::Out("<div class='btCard admin no-margin'>
 			<div class='btTitle'>
 				".(new pIcon($this->_icon, 15))." ".$this->_surface."
 			</div>
-			<div class='btButtonBar no-border up'>".$pages.$this->_actionbar->output."</div><div class='content'>
+			<div class='btButtonBar top up'>".$pages.$this->_actionbar->output."</div><div class='content'>
 			");
 
 		$records = 0;
@@ -30,7 +30,7 @@ class pTableHandler extends pHandler{
 
 		p::Out("<table class='admin'>
 			<thead>
-			<tr class='title' role='row'><td style='width: 50px'><span>".DL_ID."</span></td>");
+			<tr class='title' role='row'>");
 
 		// Building the table
 		foreach ($this->_dfs->get() as $datafield) {
@@ -39,6 +39,8 @@ class pTableHandler extends pHandler{
 				$col_count++;
 			}
 		}
+
+		p::Out("<td style='width: 15%'><span>".SURVEY_LINK."</span></td>");
 
 		// Links
 		if($this->_linked != null){
@@ -62,7 +64,7 @@ class pTableHandler extends pHandler{
 			}
 
 
-			p::Out("<tr class='item_".$real_id ."'><td><span class='xsmall'>".($real_id == 0 ? "<em><strong>".DA_DEFAULT."</em></strong>" : $showID) ."</span></td>");
+			p::Out("<tr class='item_".$real_id ."'>");
 
 			// Go through the data fields
 			foreach($this->_dfs->get() as $datafield){
@@ -98,14 +100,12 @@ class pTableHandler extends pHandler{
 
 			// The important actions and such
 			
-			p::Out("<td style='text-align: center' class='actions'><a href='javascript:void();' class='btAction actions-holder no-float ttip_actions' data-tooltip-content='#dropdown_".$data['id']."'>".(new pIcon('fa-caret-down', 12))."</a>");
+			p::Out("<td><span class='xsmall'>".($real_id == 0 ? "<em><strong>".DA_DEFAULT."</em></strong>" : $showID) ."</span></td><td style='text-align: center' class='actions'>");
 
-			p::Out("		<div class='hide'><div id='dropdown_".$data['id']."' class=''>");
 
 			foreach($this->_actions->get() as $action)
 				if(!($action->name == 'remove' AND $real_id == 0))
 					p::Out($action->render($data['id']));
-			p::Out("</div></div>");
 			
 			p::Out("</td>");
 
@@ -118,7 +118,7 @@ class pTableHandler extends pHandler{
 		p::Out("</tbody></table><script>$('.tooltip').tooltipster({animation: 'grow', distance: 0, contentAsHTML: true});</script>");
 
 		p::Out("</div>
-			<div class='btButtonBar no-border'>".$pages.$this->_actionbar->output."</div>
+			<div class='btButtonBar no-border'>".$pages."</div>
 		</div>");
 		}
 }

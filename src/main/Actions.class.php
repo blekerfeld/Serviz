@@ -16,7 +16,7 @@ class pAction{
 		return p::Url('?'.$this->_app.'/'
 			.$this->_section.'/'.
 			$this->name.(($id != -1) ? '/'.
-			$id : '').($linked != false ? '/'.$linked.'/' : '').(($ajax != 0) ? '/ajax': '').
+			$id : '').(isset(pRegister::arg()['activeSurvey']) ? '/activeSurvey/'.pRegister::arg()['activeSurvey'] : '').($linked != false ? '/'.$linked.'/' : '').(($ajax != 0) ? '/ajax': '').
 		(isset(pRegister::arg()['offset']) ? "/position/".pRegister::arg()['offset'] : ""));
 	}
 
@@ -51,7 +51,7 @@ class pAction{
 			    		$(\'.item_'.$id.'\').slideUp(function(){
 			    				window.location = window.location;
 			    		});
-					}">'.(new pIcon($this->_icon, 12)).' '.$this->_surface.'</a>';
+					}">'.(new pIcon($this->_icon, 17)).' '.$this->_surface.'</a>';
 
 		return "<a href='".p::Url($this->actionUrl($id, false, ($linked != null ? $linked : false)))."' class='".$this->_class." link_".$this->name."'>".(new pIcon($this->_icon, 12))." ".$this->_surface."</a>";
 	}
@@ -92,6 +92,25 @@ class pFieldBoolean{
 		}
 		else{
 			$this->_icon = 'ban';
+		}
+	}
+
+	public function render(){
+		return "<div class='boolean-".$this->_icon."'><i class='fa-10 fa fa-".$this->_icon."'></i></div>";
+	}
+
+}
+
+class pFieldBooleanRevert{
+
+	private $_icon;
+
+	public function __construct($value){
+		if($value){
+			$this->_icon = 'ban';
+		}
+		else{
+			$this->_icon = 'check';
 		}
 	}
 

@@ -7,7 +7,7 @@
 
 class pDispatcher {
 
-	private $_dispatchData, $_magicArguments = array(array('ajax', 'ajaxLoad', 'ajaxLoader', 'noServe'), array(), array()), $_urlArguments, $_arguments, $_markdownNames;
+	private $_dispatchData, $_magicArguments = array(array('ajax', 'ajaxLoad', 'ajaxLoader', 'noServe', 'justTheLinks'), array('activeSurvey', 'offset'), array()), $_urlArguments, $_arguments, $_markdownNames;
 
 	public $query, $structureObject;
 
@@ -16,7 +16,7 @@ class pDispatcher {
 	public function __construct($overrideQueryStringIfEmpty = false){
 		$query = $_SERVER['QUERY_STRING'];
 		if($overrideQueryStringIfEmpty == true AND $query == '')
-				$query = 'survey';
+				$query = 'auth/login';
 		$this->query = $query;
 		pRegister::queryString($this->query);		
 		// Let's pack some superglobals inside pRegister
@@ -52,6 +52,9 @@ class pDispatcher {
 			$this->takeApartDouble($double);
 		foreach($this->_magicArguments[2] as $tripple)
 			$this->takeApartTripple($tripple[0], $tripple[1], $tripple[2]);
+
+		// Let's park the argument
+		pRegister::arg($this->_arguments);
 
 		// The first argument decides which structure to use.
 		$structureName = explode('-', $this->_urlArguments[0]);

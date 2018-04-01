@@ -6,12 +6,18 @@
 // like this: pRegister::arg()['id'];
 class pRegister{
 
-	static $queryString, $arguments, $post, $session, $objectcache, $tabs, $app;
+	static $queryString, $arguments, $prearguments, $post, $session, $objectcache, $tabs, $app;
 
 	public static function arg($set = null){
 		if($set != null)
 			return self::$arguments = $set;
 		return self::$arguments;
+	}
+
+	public static function preArg($set = null){
+		if($set != null)
+			return self::$prearguments = $set;
+		return self::$prearguments;
 	}
 
 	public static function cacheAway($section, $id, $object){

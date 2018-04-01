@@ -77,7 +77,7 @@ class pAuthStructure extends pStructure{
 				if(!((new pUser)->logIn(pRegister::post()['username'])))
 					p::Out("<span class='ajaxBan hide'>".pTemplate::NoticeBox('fa-warning', LOGIN_ERROR_BANNED, 'danger-notice')."</span><script>$('.loaddots').delay(1000).slideUp();$('.ajaxBan').delay(1000).slideDown();</script>");
 				else
-					return p::Out($this->_view->succes()."<script>window.location = '".p::Url('?home')."';</script>");
+					return p::Out($this->_view->succes()."<script>window.location = '".p::Url('?')."';</script>");
 			}
 			else{
 				p::Out("<span class='ajaxBan hide'>".$this->_view->errorMessageNotActivated()."</span><script>$('.loaddots').delay(1000).slideUp();$('.ajaxBan').delay(1000).slideDown();</script>");
@@ -94,7 +94,7 @@ class pAuthStructure extends pStructure{
 		(new pUser)->logOut();	
 		// Back to the login page
 		if($header)
-			return p::Url('?home', true);
+			return p::Url('?', true);
 	}
 
 	public function render(){
@@ -128,10 +128,10 @@ class pAuthStructure extends pStructure{
 
 			// Redirect if we can't register
 			if(CONFIG_ENABLE_REGISTER == 0)
-				return p::Url('?home', true);
+				return p::Url('?', true);
 
 			if(pUser::noGuest())
-				return p::Url('?home', true);
+				return p::Url('?manage', true);
 
 			if(isset(pRegister::arg()['ajax']))
 				return $this->registerAjax();
@@ -153,7 +153,7 @@ class pAuthStructure extends pStructure{
 			return $this->logInAjax();
 
 		if(pUser::noGuest())
-			return p::Url('?home', true);
+			return p::Url('?manage', true);
 
 		p::Out($this->_view->loginForm());
 

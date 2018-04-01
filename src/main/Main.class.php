@@ -138,14 +138,14 @@ class pMain{
 			$return = $hashid->decode($hash);
 			
 			if(isset($return[0]))
-				$return[0] = $return[0] / 2;
+				$return[0] = ($return[0] / 22) - 2000;
 			else
 				$return[0] = 0;
 
 
 			return $return;
 		}
-		return $hashid->encode($hash * 2); 
+		return $hashid->encode(($hash + 2000) * 22); 
 	}
 
 	public static function FromRoot($path){
@@ -171,7 +171,7 @@ class pMain{
 		// Let's load the locale
 		self::$locales = json_decode(file_get_contents($languagePath), true); 
 
-		// Now it's time to define the constants, with a certaint callback!
+		// Now it's time to define the constants, with a certain callback!
 		foreach (self::$locales['strings'] as $stringholder)
 			foreach($stringholder as $key => $value)
 				define($key, $value);
@@ -315,5 +315,15 @@ class p extends pMain{
 
 			</script>");
 	}
+
+	public function EscapedImplode($sep, $arr, $escape = '\\') {
+		if (!is_array($arr)) {
+			return false;
+		}
+		foreach ($arr as $k => $v) {
+			$arr[$k] = str_replace($sep, $escape . $sep, $v);
+		}
+		return implode($sep, $arr);
+}
 
 }

@@ -186,7 +186,7 @@
       'unique':true,
       removeWithBackspace:true,
       placeholderColor:'#666666',
-      placeholder:'➥ Add translations',
+      placeholder:'➥ ...',
       autosize: true,
       comfortZone: 20,
       inputPadding: 6*2

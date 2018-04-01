@@ -6,7 +6,7 @@ class pDataModel {
 
 	public $_fields = null, $_table, $_fieldstring, $_valuestring, $_updateid, $_updatestring, $_singleId, $_paginated, $_data, $_condition, $_order = '1', $_limit = null;
 
-	public function __construct($table, $fields = null, $paginated = false, $shortcutToSingleID = null){
+	public function __construct($table = 'config', $fields = null, $paginated = false, $shortcutToSingleID = null){
 		$this->_fields = $fields;
 		$this->_table = $table;
 		$this->_paginated = $paginated;
@@ -70,7 +70,7 @@ class pDataModel {
 			$id = p::HashId($id, true)[0];
 
 		// Condition can't start with WHERE
-		$condition = p::Str($this->_condition)->replacePrefix("WHERE", ' AND ');
+		$condition = p::Str(trim($this->_condition))->replacePrefix("WHERE", ' AND ');
 
 		$this->_singleId = $id;
 
@@ -262,8 +262,6 @@ class pDataModel {
 			$fieldString = "(".$this->_fieldstring.")";
 
 		p::$db->cacheQuery("INSERT INTO ".$this->_table." $fieldString  VALUES (".$this->_valuestring.");");
-
-		
 
 		return p::$db->lastInsertId();
 	}

@@ -51,7 +51,7 @@ class pUser{
 		if(isset(self::$user))
 			return (self::$user['role'] == (4 + $minus) OR self::$user['role']< (4 + $minus));
 		else
-			return ((4 + $minus) == 4 OR (4 + $minus) < 4);
+			return ((4 + $minus) == 4);
 	}
 
 	// This function assumes the user in question exists, it returns false only if the user is banned.

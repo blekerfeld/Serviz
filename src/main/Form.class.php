@@ -14,6 +14,8 @@ class pMagicField{
 		$this->_value = $value;
 		$this->name = $field->name;
 		$this->_is_null = $isNull;
+		if($this->_field->valueFix != null)
+			$this->value($this->_field->valueFix);
 	}
 
 	public function value($set = false){
@@ -40,11 +42,19 @@ class pMagicField{
 
 		switch ($this->_field->type) {
 			case 'textarea':
-				p::Out("<textarea name='".$this->_field->name."' class=field_'".$this->_field->name." ".$this->_field->class."'>".$this->_field->_value."</textarea>");
+				p::Out("<textarea name='".$this->_field->name."' class=field_'".$this->_field->name." ".$this->_field->class."'>".$this->_value."</textarea>");
+				break;
+
+			case 'markdown-hide':
+				p::Out("<textarea  name='".$this->_field->name."' class='gtEditor field_'".$this->_field->name." ".$this->_field->class."'>".$this->_value."</textarea>");
 				break;
 
 			case 'boolean':
 				p::Out("<select name='".$this->name."' class='field_".$this->name." ".$this->_field->class."'><option value='1' ".($this->value() == 1 ? 'selected' : '').">".DL_ENABLED."</option><option value='0' ".($this->value() == 0 ? 'selected' : '').">".DL_DISABLED."</option></select><script>$('.field_".$this->name."').selectorTabs();</script>");
+				break;
+
+			case 'boolean-revert':
+				p::Out("<select name='".$this->name."' class='field_".$this->name." ".$this->_field->class."'><option value='1' ".($this->value() == 1 ? 'selected' : '').">".DL_DISABLED."</option><option value='0' ".($this->value() == 0 ? 'selected' : '').">".DL_ENABLED."</option></select><script>$('.field_".$this->name."').selectorTabs();</script>");
 				break;
 
 			case 'hidden-show':
@@ -88,6 +98,17 @@ class pMagicField{
 				p::Out("<textarea name='".$this->name."'' class='minEditor elastic allowtabs field_".$this->name." ".$this->_field->class."' >".$this->_value."</textarea>");
 				break;
 			
+			case 'inputtype':
+				$dropdowns = (new pDataModel)->complexQuery("SELECT DISTINCT dropdown_id FROM survey_background_dropdown_options WHERE survey_id = '".pRegister::arg()['activeSurvey']."';")->fetchAll();
+				$types = ['_input' => SURVEY_Q_INPUT, '_textarea' => SURVEY_Q_TEXTAREA, '_tagsinput' => SURVEY_Q_TAGSINPUT, '_age' => SURVEY_Q_AGE];
+				foreach($dropdowns as $d)
+					$types[$d['dropdown_id']] = (p::StartsWith($d['dropdown_id'], 'multi_') ? SURVEY_Q_DROPDOWN_MULTI : SURVEY_Q_DROPDOWN).": ".$d['dropdown_id'];
+				p::Out("<select name='".$this->name."'' class='select2 admin_select field_".$this->name." ".$this->_field->class."'>");
+				foreach($types as $value => $option)
+					p::Out("<option value='".$value."' ".($this->_value == $value ? 'selected' : '').">".$option."</option>");
+				p::Out("</select>");
+				break;
+
 			default:
 				p::Out("<input name='".$this->_field->name."' class='btInput nWord small normal-font field_".$this->name." ".$this->_class."' value='".$this->_value."' />");
 				break;
@@ -324,7 +345,7 @@ class pMagicActionForm{
 
 	public function form($showBack = true, $forceID = null, $forceBtCard = true, $forceFirstID = null){
 		if($forceBtCard == true){
-			p::Out("<div class='btCard admin'>");
+			p::Out("<div class='btCard admin no-margin'>");
 			p::Out("<div class='btTitle'>".$this->_strings[0]."</div>");
 		}
 		else{
@@ -349,7 +370,7 @@ class pMagicActionForm{
 			$_SESSION['pJSBack'] = false;
 		}
 		else
-			$hrefBack = p::Url("?".$this->_app."/".$this->_section.(isset($_REQUEST['position']) ? "/offset/".$_REQUEST['position'] : ""));
+			$hrefBack = p::Url("?".$this->_app."/".$this->_section.(isset($_REQUEST['position']) ? "/offset/".$_REQUEST['position'] : "").(isset(pRegister::arg()['activeSurvey']) ? "/activeSurvey/".pRegister::arg()['activeSurvey'] : ""));
 
 		if($forceBtCard)
 			p::Out("<div class='btButtonBar'>

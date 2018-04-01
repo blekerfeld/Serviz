@@ -15,6 +15,7 @@ class pParser{
 		$this->structure = $st->_prototype;
 		$this->_app = $st->_app;
 		self::$stApp = $this->_app;
+		self::$stSection = $st->_prototype[$st->_section]['section_key'];
 		$this->_section = $st->_prototype[$st->_section]['section_key'];
 		$this->_data =  $st->_prototype[$this->_section];
 		$this->_parent = $st;
@@ -116,7 +117,8 @@ class pParser{
 		if(pUser::checkPermission($this->_permission))
 			return $this->_handler->render();
 		else{
-			return p::Out("<div class='btCard minimal admin'>".pTemplate::NoticeBox('fa-info-circle fa-12', DA_PERMISSION_ERROR, 'danger-notice')."</div>");
+			p::Out("<div class='btCard minimal admin'>".pTemplate::NoticeBox('fa-info-circle fa-12', DA_PERMISSION_ERROR, 'danger-notice')."</div>");
+			return;
 		}
 	}
 

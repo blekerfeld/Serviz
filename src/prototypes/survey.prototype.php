@@ -31,6 +31,7 @@ return [
 			'actions_item' => [],
 			'actions_bar' => [],
 			'save_strings' => $saveStrings,
+			'check_survey' => true,
 		],
 		'do' => [
 			'section_key' => 'do',
@@ -50,5 +51,6 @@ return [
 			'actions_item' => [],
 			'actions_bar' => [],
 			'save_strings' => $saveStrings,
+			'check_survey' => true,
 		],
 	];

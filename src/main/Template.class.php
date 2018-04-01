@@ -94,7 +94,7 @@ class pTemplate{
     });";
   }
 
-	protected function userBox(){
+	public function userBox(){
     if(pUser::noGuest())
 		  return (pUser::read('longname') != '' ? pUser::read('longname') : pUser::read('username'))." <a href='".p::Url('?auth/logout')."'>(".MMENU_LOGOUT.")</a>";
 	}
@@ -187,9 +187,16 @@ class pTemplate{
 
           	<div class='page'>
             		<div class='inner-page'>
-                    <div class='btCard contains-logo no-padding'>
-                      <img class='siteLogo' src='<?php echo p::Url(CONFIG_LOCAL_LOGO); ?>' />
-                    </div><br />
+                    <?php 
+                    
+                    if(pRegister::app() != 'survey'){
+                      ?>
+                    <div class='btCard contains-logo <?php echo (pRegister::app() != 'manage' ? 'bt' : '');?> no-padding'>
+                      <img class='siteLogo small' src='<?php echo p::Url(CONFIG_LOCAL_LOGO); ?>' />
+                    </div>
+                    <?php
+                    }
+                    ?>
               			<?php echo new pMain; ?>
             		</div>
          		</div>
@@ -200,15 +207,17 @@ class pTemplate{
     </div>
     </div>
     <div class='absolute_footer'>
-      <img class='logo' src='<?php echo p::Url("serviz://library/staticimages/logo.png"); ?>'/><br /><br />
+      <?php if(pRegister::app() != 'survey'){ ?>
       <div class='float-right small'>
-         <?php if(!pUser::noGuest()){ echo $this->login(); } ?>
+      <?php if(!pUser::noGuest()){ echo $this->login(); } ?>
         <?php echo $this->userBox(); ?></div>
-
+      <?php } ?>
+               
         <span class='float-left'>
+         powered by  
          <?php 
-          echo "<a href='https://github.com/blekerfeld/serviz' class='tooltip'><i class='fab fa-github fa-10'></i> /serviz</a> 1.0.1</a>"; 
-        ?> / Thomas de Roo<br />
+          echo "  <a href='https://github.com/blekerfeld/serviz' class='tooltip'>  <i class='fab fa-github fa-10'></i> /serviz</a> 1.0.1</a>"; 
+        ?> <br/ > &copy; Thomas de Roo<br />
         </span><span class='float-right'>
          </span><br />
     </div>

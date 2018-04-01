@@ -1,7 +1,6 @@
 <?php
 // Serviz 1.0.1 - Thomas de Roo - Licensed under MIT
 // file: ExampleView.class.php
-
 //$structure, $icon, $surface, $table, $itemsperpage, $dfs, $actions, $actionbar, $paginated, $section, $app = 'dictionary-admin')
 
 class pLoginView extends pView{
@@ -60,12 +59,8 @@ class pLoginView extends pView{
 		return pTemplate::NoticeBox('fa-exclamation-triangle fa-12', LOGIN_ERROR_ACTIVATED, 'danger-notice ajaxMessage')."<script type='text/javascript'>$('.saving').delay(1000).slideUp();$('.ajaxMessage').delay(2000).slideDown();</script>";
 	}
 
-
 	public function warning(){
 		return pTemplate::NoticeBox('fa-info-circle fa-12', SAVED_EMPTY, 'warning-notice ajaxMessage')."<script type='text/javascript'>$('.saving').slideUp();$('.ajaxMessage').slideDown();</script>";
 	}
-
-
-
 
 }

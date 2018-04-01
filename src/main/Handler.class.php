@@ -103,12 +103,12 @@ class pHandler{
 
 	public function pagePrevious(){
 		if($this->_offset >= $this->_itemsperpage)
-			return "<a href='".p::Url("?".$this->_app . "/". $this->_section . '/'.(isset(pRegister::arg()['id']) ? pRegister::arg()['id'] .'/' : '') . 'offset/'.($this->_offset - $this->_itemsperpage))."' class='arrow'>".(new pIcon('arrow-left'))."</a>";
+			return "<a href='".p::Url("?".$this->_app . "/". $this->_section . '/'.(isset(pRegister::arg()['id']) ? pRegister::arg()['id'] .'/' : '') . 'offset/'.($this->_offset - $this->_itemsperpage)).(isset(pRegister::arg()['activeSurvey']) ? '/activeSurvey/'.pRegister::arg()['activeSurvey'] : '')."' class='arrow'>".(new pIcon('arrow-left'))."</a>";
 	}
 
 	public function pageNext(){
 		if($this->_total > ($this->_offset + $this->_itemsperpage))
-			return "<a  href='".p::Url("?".$this->_app . "/". $this->_section . '/'.(isset(pRegister::arg()['id']) ? pRegister::arg()['id'] .'/' : '') . 'offset/'.($this->_offset + $this->_itemsperpage))."' class='arrow'>".(new pIcon('arrow-right'))."</a> ";
+			return "<a  href='".p::Url("?".$this->_app . "/". $this->_section . '/'.(isset(pRegister::arg()['id']) ? pRegister::arg()['id'] .'/' : '') . 'offset/'.($this->_offset + $this->_itemsperpage)).(isset(pRegister::arg()['activeSurvey']) ? '/activeSurvey/'.pRegister::arg()['activeSurvey'] : '')."' class='arrow'>".(new pIcon('arrow-right'))."</a> ";
 	}
 
 	public function changePagination($value){
@@ -132,7 +132,7 @@ class pHandler{
 		while($number_of_pages > 0){
 			$calculated_offset = (($current_page_number * $this->_itemsperpage) - $this->_itemsperpage);
 			if($current_page_number == 1  OR $this->_number_of_pages == $current_page_number OR  ($current_page_number <= $calculated_pagenum + 2 AND $current_page_number >= $calculated_pagenum - 2) OR $current_page_number == $calculated_pagenum)
-				$output .= "<a class='num ".($current_page_number == $calculated_pagenum ? 'active' : '')."' href='".p::Url("?".$this->_app . "/". $this->_section . '/' .(isset(pRegister::arg()['id']) ? pRegister::arg()['id'] .'/' : '') .'offset/'. $calculated_offset)."'>".$current_page_number."</a> ";
+				$output .= "<a class='num ".($current_page_number == $calculated_pagenum ? 'active' : '')."' href='".p::Url("?".$this->_app . "/". $this->_section . '/' .(isset(pRegister::arg()['id']) ? pRegister::arg()['id'] .'/' : '') .'offset/'. $calculated_offset).(isset(pRegister::arg()['activeSurvey']) ? '/activeSurvey/'.pRegister::arg()['activeSurvey'] : '')."'>".$current_page_number."</a> ";
 			else{
 				if($current_page_number < $calculated_pagenum + 2 AND $sep1 == false){
 					$output .= "<span class='sep'>...</span> ";

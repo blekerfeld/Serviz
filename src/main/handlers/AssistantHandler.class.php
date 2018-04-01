@@ -6,7 +6,7 @@
 
 class pAssistantHandler extends pHandler{
 
-	public $_view, $_rulesheetModel;
+	public $_view, $_rulesheetModel, $_doesNotExist = false, $_surveyID, $_survey = ['is_closed' => 1], $_surveyLanguages = [];
 
 	// Constructor needs to set up the view as well
 	public function __construct(){
@@ -14,38 +14,55 @@ class pAssistantHandler extends pHandler{
 		call_user_func_array('parent::__construct', func_get_args());
 		// Override the datamodel
 		$this->_dataModel = null;
+		$this->_view = new $this->_activeSection['view']($this, $this->_section);
+
+		if(isset($this->_activeSection['check_survey']) AND $this->_activeSection['check_survey']){
+			$this->_surveyID = p::HashId(pRegister::arg()['survey'], true)[0];
+			if(!self::checkSurvey($this->_surveyID))
+				$this->_doesNotExist = true;
+		}
+	}
+
+	public function checkSurvey($id){
+		// for now, only check whether survey exists
+		$returnValue =  (($check = (new pDataModel)->complexQuery("SELECT * FROM surveys WHERE id = ".$id)) AND $check->rowCount() != 0 AND $this->_survey = $check->fetchAll()[0] AND $checkLang = (new pDataModel)->complexQuery("SELECT * FROM survey_languages WHERE survey_id = ".$id) AND $check->rowCount() != 0 AND $this->_surveyLanguages = $checkLang->fetchAll());
+		
+		if(!$returnValue)
+			return false;
+		
+		$tempLang = [];
+		foreach($this->_surveyLanguages as $lang)
+			$tempLang[$lang['id']] = $lang;
+
+		$this->_surveyLanguages = $tempLang;
+		return true;
+	}
+
+	public static function _checkSurvey($id){
+		// for now, only check whether survey exists
+		return (($check = (new pDataModel)->complexQuery("SELECT * FROM surveys WHERE id = ".$id)) AND $check->rowCount() != 0);
+	}
+
+
+	public function render($ajax = false){
 
 		$this->_view = new $this->_activeSection['view']($this, $this->_section);
-	}
+		
+		if($this->_doesNotExist)
+			return p::Out("WHOOOPS!");
+		if($this->_survey['is_closed'] == 1)
+			return $this->_view->renderClosed();
 
-
-	public function render(){
-		$function = "render" . ucfirst($this->_section);
-		if(method_exists($this, $function))
-			return $this->$function();
-	}
-
-	public function renderDefault(){
-		return $this->_view->render('default', $this->_prototype, false, false);
-	}
-
-	public function renderRevise($ajax = false){
 		return $this->_view->render($this->_section, [], $ajax);
 	}
 
 
-	public function getData($id = -1){
+	public function activeLang(){
+		return $this->_surveyLanguages[$_SESSION['btChooser-ask']];
+	}
 
-		if($this->_section == 'translate' AND isset(pRegister::session()['btChooser-translate'])){
-			$this->_dataModel = new pDataModel('survey_words');
-	
-			$this->_data = $this->_dataModel->complexQuery("SELECT * FROM survey_words WHERE language != '".$_SESSION['btChooser-background']."' AND id NOT IN ( '" . @implode($_SESSION['btSkip-do'], "', '") . "' ) LIMIT 1;")->fetchAll();
-		}
-		if($this->_section == 'revise' AND isset(pRegister::session()['btChooser-revise'])){
-			$this->_dataModel = new pDataModel('survey_answers');
-			$this->_data = $this->_dataModel->complexQuery("SELECT *, survey_answers.id AS answerID, survey_words.word AS word_native FROM survey_answers JOIN survey_sessions ON survey_sessions.id = survey_answers.survey_session JOIN survey_words ON survey_words.id = survey_answers.word WHERE answer != '' AND revised = 0 AND survey_sessions.language = '".$_SESSION['btChooser-revise']."' LIMIT 1;")->fetchAll();
-		}
-		return false;
+	public function getData($id = -1){
+		return [];
 	}
 
 

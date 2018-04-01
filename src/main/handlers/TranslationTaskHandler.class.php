@@ -6,16 +6,11 @@
 
 class pTranslationTaskHandler extends pAssistantHandler{
 
-	public function render($ajax = false){
-		$_SESSION['btChooser-do'] = 0;
-		return $this->_view->render($this->_section, [], $ajax);
-	}
-
 	public function getData($id = -1){
 
 		if(isset(pRegister::session()['btChooser-do'])){
 			$this->_dataModel = new pDataModel('survey_words');
-			$this->_data = $this->_dataModel->complexQuery("SELECT * FROM survey_words WHERE language != '".$_SESSION['btChooser-ask']."' AND survey_version = '".$_SESSION['btSurveyVersion']."' AND id NOT IN ( '" . @implode($_SESSION['btSkip-do'], "', '") . "' ) ORDER BY sorter ASC LIMIT 1;")->fetchAll();
+			$this->_data = $this->_dataModel->complexQuery("SELECT * FROM survey_words WHERE survey_id = '".$this->_surveyID."' AND language != '".$_SESSION['btChooser-ask']."' AND survey_version = '".$_SESSION['btSurveyVersion']."' AND id NOT IN ( '" . @implode($_SESSION['btSkip-do'], "', '") . "' ) ORDER BY sorter ASC LIMIT 1;")->fetchAll();
 		}
 		
 		return false;
