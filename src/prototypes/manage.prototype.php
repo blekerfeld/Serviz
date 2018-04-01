@@ -209,7 +209,7 @@ return [
 				'remove' => $action_remove,
 			],
 			'actions_bar' => [
-				'new' => ['new', MANAGE_TRANS_ADD, 'fa-plus-circle fa-12', 'btAction no-float small', null, null],
+				'new' => ['new', MANAGE_STIM_GROUPS_ADD, 'fa-plus-circle fa-12', 'btAction no-float small', null, null],
 			],
 			'save_strings' => $saveStrings,
 		],
@@ -239,7 +239,7 @@ return [
 				'remove' => $action_remove,
 			],
 			'actions_bar' => [
-				'new' => ['new', MANAGE_VER_NEW, 'fa-plus-circle fa-12', 'btAction no-float small', null, null],
+				'new' => ['new', MANAGE_TRANS_ADD, 'fa-plus-circle fa-12', 'btAction no-float small', null, null],
 			],
 			'save_strings' => $saveStrings,
 		],
