@@ -126,7 +126,7 @@ class pConnection extends PDO{
 			return $cache_query;
 
 		}
-		
+
 	}
 
 	public function CleanCache($section = 'queries', $prefix = ''){
