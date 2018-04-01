@@ -109,6 +109,14 @@ class pMagicField{
 				p::Out("</select>");
 				break;
 
+			case 'password':
+				p::Out("<input type='password' name='".$this->_field->name."' class='btInput nWord small normal-font field_".$this->name." ".$this->_class."' value='".$this->_value."' />");
+				break;
+
+			case 'number':
+				p::Out("<input type='password' name='".$this->_field->name."' class='btInput nWord small normal-font field_".$this->name." ".$this->_class."' value='".$this->_value."' />");
+				break;
+
 			default:
 				p::Out("<input name='".$this->_field->name."' class='btInput nWord small normal-font field_".$this->name." ".$this->_class."' value='".$this->_value."' />");
 				break;

@@ -60,7 +60,7 @@ return [
 				new pDataField('survey_id', '', 'auto', 'hidden', false, true, false, 'medium', false, @pRegister::arg()['activeSurvey']),
 
 
-				new pDataField('sorter', MANAGE_STIM_SORT, '15%', 'input', true, true, false, 'tooltip medium em', false),
+				new pDataField('sorter', MANAGE_STIM_SORT, '15%', 'number', true, true, false, 'tooltip medium em', false),
 
 
 				new pDataField('is_slide', '', 'auto', 'hidden', false, true, false, 'medium', false, '1'),
@@ -99,7 +99,7 @@ return [
 
 				new pDataField('type', SURVEY_Q_TYPE, '15%', 'inputtype', true, true, false, 'tooltip medium em', false),
 
-				new pDataField('sorter', MANAGE_STIM_SORT, '15%', 'input', true, true, false, 'tooltip medium em', false),
+				new pDataField('sorter', MANAGE_STIM_SORT, '15%', 'number', true, true, false, 'tooltip medium em', false),
 
 				new pDataField('doneStatus', MANAGE_BQ_SHOWBEFORE, '20%', 'boolean-revert', true, true, true, '', true),
 
@@ -170,7 +170,7 @@ return [
 				new pDataField('survey_version', MANAGE_VER_REF, 'auto', 'select', true, true, true, 'small-caps xxxsmall', false, new pSelector('survey_versions', null, 'internName', true, 'versions')),
 				new pDataField('word', MANAGE_STIM_SHOWWORD, 'auto', 'input', true, true, false, 'tooltip medium em', false),
 				new pDataField('audiofile', MANAGE_STIM_PLAYSOUND, 'auto', 'audiofile', true, true, false, 'tooltip medium em', false),
-				new pDataField('sorter', MANAGE_STIM_SORT, 'auto', 'input', true, true, false, 'tooltip medium em', false),
+				new pDataField('sorter', MANAGE_STIM_SORT, 'auto', 'number', true, true, false, 'tooltip medium em', false),
 				new pDataField('survey_id', '', 'auto', 'hidden', false, true, false, 'medium', false, @pRegister::arg()['activeSurvey']),
 			],
 			'actions_item' => [
