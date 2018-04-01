@@ -96,6 +96,8 @@ class pBackgroundView extends pAssistantView{
 						<br id='cl' />
 					</div>")."
 			</div>");
+			if($data['force_noButtons'] == 1)
+				(new pDataModel('survey_sessions'))->complexQuery("UPDATE survey_sessions SET doneStatus = '1' WHERE id = ".$_SESSION['btSurveyID']);
 		}
 
 		$surveyPart = ((isset($this->_data->_activeSection['check_survey']) AND $this->_data->_activeSection['check_survey'] == true) ? '/'.p::HashId($this->_data->_surveyID).'/' : '/');
@@ -117,8 +119,8 @@ class pBackgroundView extends pAssistantView{
 				});
 			});
 			$('.button-skip-close').click(function(){
-				$('.btLoadSide').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/skip/ajax')."', {'skip': ".$data['id']."}, function(){
-					serveCardForce('background');
+				$('.btLoadSide').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/reset/ajax')."', {'skip': ".$data['id']."}, function(){
+					serveChoose();
 				});
 			});
 

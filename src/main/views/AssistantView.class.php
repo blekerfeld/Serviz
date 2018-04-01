@@ -126,7 +126,7 @@ class pAssistantView extends pView{
 			$('.btLoad').slideUp();
 			$('.bottomCard').hide();
 			$('.dotsc').slideDown();
-			$('.btLoad').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/ajax'.
+			$('.assistantLoader').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/ajax'.
 	(isset(pRegister::arg()['activeSurvey']) ? '/activeSurvey/'.pRegister::arg()['activeSurvey'] : ''))."', {}, function(){
 				$('.dotsc').slideUp();
 				$('.btLoad').slideDown();

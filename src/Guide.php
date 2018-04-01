@@ -15,7 +15,7 @@ return [
 	],
 
 	'csv' => [
-		'page_title' => 'Home',
+		'page_title' => 'CSV export',
 		'default_section' => 'home',
 		'arguments' => [
 			'surveyID',
@@ -50,7 +50,7 @@ return [
 	],
 
 	'survey' => [
-		'page_title' => 'Survey',
+		'page_title' => SURVEY_TITLE_DO,
 		'default_section' => 'ask',
 		'override_structure_type' => 'pAssistantStructure',
 		'arguments' => [
@@ -63,7 +63,7 @@ return [
 	],
 
 	'manage' => [
-		'page_title' => 'manage',
+		'page_title' => SURVEY_TITLE_MANAGE,
 		'default_section' => 'surveys',
 		'override_structure_type' => 'pAdminStructure',
 		'arguments' => [

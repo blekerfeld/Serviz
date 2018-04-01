@@ -84,7 +84,7 @@ class pTranslationTaskView extends pAssistantView{
 				$('.btCardEmpty').hide();
 				$('.bottomCard').hide();
 				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/reset/ajax')."', {'value': $('.translations').val()}, function(){
-					serveCard();
+						serveChooser();
 				});
 			});
 			

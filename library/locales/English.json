@@ -310,7 +310,12 @@
          "SURVEY_SESSIONS_DONE":"Completed",
          "SURVEY_EXPORT":"Export to CSV",
          "SURVEY_OVERVIEW":"Overview",
-         "SURVEY_REVISE":"Revise answers"
+         "SURVEY_REVISE":"Revise answers",
+         "SURVEY_TITLE_DO":"Survey",
+         "SURVEY_TITLE_MANAGE":"Manage surveys",
+         "SURVEY_HALF":"Half points",
+         "SURVEY_RIGHT":"Right",
+         "SURVEY_WRONG":"Wrong"
       }
    }
 }
