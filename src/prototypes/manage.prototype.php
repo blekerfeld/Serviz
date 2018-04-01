@@ -157,7 +157,7 @@ return [
 			'view' => 'pView',
 			'surface' => SURVEY_STIMULI,
 			'condition' => (isset(pRegister::arg()['activeSurvey']) ? " WHERE survey_id = '".pRegister::arg()['activeSurvey']."' " : ""),
-			'order' => " sorter ASC ",
+			'order' => " survey_version ASC, sorter ASC ",
 			'is_admin' => true,
 			'is_assistant' => false,
 			'items_per_page' => 10,
@@ -326,7 +326,7 @@ return [
 				new pDataField('strTranslate', SURVEY_STR_TRANSLATE, 'auto', 'input', true, true, false, 'medium', false),
 				new pDataField('strBack', SURVEY_STR_BACK, 'auto', 'input', true, true, false, 'medium', false),
 				new pDataField('strNext', SURVEY_STR_NEXT, 'auto', 'input', true, true, false, 'medium', false),
-				
+
 				((new pDataField('survey_id', '', 'auto', 'hidden', false, true, false, 'medium', false, @pRegister::arg()['activeSurvey']))),
 			],
 			'actions_item' => [
