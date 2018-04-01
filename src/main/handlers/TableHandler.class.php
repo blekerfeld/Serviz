@@ -98,14 +98,11 @@ class pTableHandler extends pHandler{
 
 			// The important actions and such
 			
-			p::Out("<td style='text-align: center' class='actions'><a href='javascript:void();' class='btAction actions-holder no-float ttip_actions' data-tooltip-content='#dropdown_".$data['id']."'>".(new pIcon('fa-caret-down', 12))."</a>");
-
-			p::Out("		<div class='hide'><div id='dropdown_".$data['id']."' class=''>");
+			p::Out("<td style='text-align: center' class='actions'>");
 
 			foreach($this->_actions->get() as $action)
 				if(!($action->name == 'remove' AND $real_id == 0))
 					p::Out($action->render($data['id']));
-			p::Out("</div></div>");
 			
 			p::Out("</td>");
 
