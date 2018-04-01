@@ -233,6 +233,8 @@ return [
 				new pDataField('translation', MANAGE_TRANS_TRANS, 'auto', 'input', true, true, true, 'medium', false),
 				new pDataField('survey_word', MANAGE_TRANS_WORD, '10%', 'select', true, true, true, 'small-caps xxxsmall', false, new pSelector('survey_words', null, 'internID', true, 'stimuli')),
 				new pDataField('language', MANAGE_TRANS_LANG, '10%', 'select', true, true, true, 'small-caps xxxsmall', false, new pSelector('survey_languages', null, 'language_name', true, 'languages')),
+
+				((new pDataField('survey_id', '', 'auto', 'hidden', false, true, false, 'medium', false, @pRegister::arg()['activeSurvey']))),
 			],
 			'actions_item' => [
 				'edit' => $action_edit,
@@ -262,6 +264,8 @@ return [
 			'datafields' => [
 				new pDataField('internName', MANAGE_VER_NAME, 'auto', 'input', true, true, true, 'medium', false),
 				new pDataField('usageCount', MANAGE_VER_CNT, 'auto', 'input', true, false, false, 'medium', false),
+
+				((new pDataField('survey_id', '', 'auto', 'hidden', false, true, false, 'medium', false, @pRegister::arg()['activeSurvey']))),
 			],
 			'actions_item' => [
 				'edit' => $action_edit,
@@ -322,6 +326,8 @@ return [
 				new pDataField('strTranslate', SURVEY_STR_TRANSLATE, 'auto', 'input', true, true, false, 'medium', false),
 				new pDataField('strBack', SURVEY_STR_BACK, 'auto', 'input', true, true, false, 'medium', false),
 				new pDataField('strNext', SURVEY_STR_NEXT, 'auto', 'input', true, true, false, 'medium', false),
+				
+				((new pDataField('survey_id', '', 'auto', 'hidden', false, true, false, 'medium', false, @pRegister::arg()['activeSurvey']))),
 			],
 			'actions_item' => [
 				'edit' => $action_edit,
