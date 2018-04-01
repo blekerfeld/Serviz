@@ -55,9 +55,9 @@ class pRevisionView extends pAssistantView{
 				</div>
 
 				<div class='btButtonBar center'>
-					<a class='btAction button-right green medium no-float'>" . (new pIcon('thumb-up')) . " Right</a>
-					<a class='btAction button-half blue medium no-float'>" . (new pIcon('thumbs-up-down')) . "</a>
-					<a class='btAction button-wrong redbt medium no-float'>" . (new pIcon('thumb-down')) . " Wrong</a>
+					<a class='btAction button-right green medium no-float'>" . (new pIcon('thumb-up')) . " ".SURVEY_RIGHT."</a>
+					<a class='btAction button-half blue medium no-float'>" . (new pIcon('thumbs-up-down')) . " ".SURVEY_HALF."</a>
+					<a class='btAction button-wrong redbt medium no-float'>" . (new pIcon('thumb-down')) . " ".SURVEY_WRONG."</a>
 					<br id='cl' />
 				</div>
 		</div>
