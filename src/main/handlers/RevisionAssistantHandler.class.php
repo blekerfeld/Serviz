@@ -38,6 +38,8 @@ class pRevisionAssistantHandler extends pAssistantHandler{
 
 		if(pRegister::post()['value'] == '1')
 			(new pDataModel('survey_correct_translations'))->complexQuery("INSERT INTO survey_correct_translations (id, language, translation, survey_id, internID) VALUES(NULL, '".$this->_data[0]['session_lang']."', '".$this->_data[0]['answer']."', '".$this->_data[0]['survey_id']."', '".$this->_data[0]['internID_word']."') ;");
+		if(pRegister::post()['value'] == '0')
+			(new pDataModel('survey_wrong_translations'))->complexQuery("INSERT INTO survey_correct_translations (id, language, translation, survey_id, internID) VALUES(NULL, '".$this->_data[0]['session_lang']."', '".$this->_data[0]['answer']."', '".$this->_data[0]['survey_id']."', '".$this->_data[0]['internID_word']."') ;");
 		
 		(new pDataModel('survey_answers'))->cleanCache('survey_questions_answers')->complexQuery("UPDATE survey_answers SET isMatch = '" .pRegister::post()['value'] . "', revised = 1 WHERE answer = " . p::Quote($this->_data[0]['answer']).";");
 	}
