@@ -20,7 +20,7 @@ class pStatsHandler extends pHandler{
 		if(!$this->_time = (new pDataModel)->complexQuery("SELECT ROUND(AVG( TIMESTAMPDIFF(MINUTE,date_started, date_completed))) AS completionTime FROM survey_sessions WHERE doneStatus = 1;")->fetchAll()[0])
 			p::Url('?', true); 		
 		
-		if(!$this->_unrevised = (new pDataModel)->complexQuery("SELECT count(survey_answers.id) AS unrevisedCount FROM survey_sessions JOIN survey_answers ON survey_answers.survey_session = survey_sessions.id WHERE survey_sessions.survey_id = ".$this->_survey['id']." AND survey_answers.revised = 0 AND survey_answers.answer != '' AND survey_answers.isMatch = 0;")->fetchAll()[0])
+		if(!$this->_unrevised = (new pDataModel)->complexQuery("SELECT count(DISTINCT survey_answers.answer) AS unrevisedCount FROM survey_sessions JOIN survey_answers ON survey_answers.survey_session = survey_sessions.id WHERE survey_sessions.survey_id = ".$this->_survey['id']." AND survey_answers.revised = 0 AND survey_answers.answer != '' AND survey_answers.isMatch = 0;")->fetchAll()[0])
 			p::Url('?', true); 		
 
 		if(!$this->_languages = (new pDatamodel)->complexQuery("SELECT * FROM survey_languages WHERE choosable = 1 AND survey_id = '".$this->_survey['id']."';")->fetchAll())
