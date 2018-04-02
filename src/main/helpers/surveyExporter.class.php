@@ -4,7 +4,7 @@
 
 class pSurveyExporter{
 
-	private $_language, $_natLang, $_survey, $_fields = ['id', 'ipadress', 'language', 'total', 'version'], $_dM, $_backgroundFields, $_wordFields, $_groupFields, $_rows = [], $_sessions = [], $_versionNames = [], $_wordAnswers = [], $_backgroundAnswers = []; 
+	private $_language, $_natLang, $_survey, $_fields = ['id', 'ipadress', 'language', 'total', 'RT_total', 'num_total', 'version'], $_dM, $_backgroundFields, $_wordFields, $_groupFields, $_groupWords = [], $_rows = [], $_sessions = [], $_versionNames = [], $_wordAnswers = [], $_backgroundAnswers = [], $_done = false; 
 
 	public function __toString(){
 		return; 
@@ -18,7 +18,10 @@ class pSurveyExporter{
 
 		// Let's check whether or not the survey exsists.
 		if(!(($check = $this->_dM->complexQuery("SELECT * FROM surveys WHERE id = ".$id)) AND $check->rowCount() != 0 AND $this->_survey = $check->fetchAll()[0]))
-			throw new Exception("Nope, this survey does not exist. nope. nope. ");
+			return;
+
+		if($this->_survey['user_id'] != pUser::read('id'))
+			return;
 
 		// Load ALL the things
 		$this->getBackgroundFields();
@@ -32,21 +35,38 @@ class pSurveyExporter{
 		foreach($this->_sessions as $session){
 			// Create a temporary row
 
-			$tempRow = ['id' => $session['id'], 'total' => 0, 'ipadress' => $session['ipadress'], 'language' => $session['language'], 'version' => $this->_versionNames[$session['survey_version']]];
+			$tempRow = ['id' => $session['id'], 'total' => 0, 'RT_total' => 0, 'num_total' => 0, 'ipadress' => $session['ipadress'], 'language' => $session['language'], 'version' => $this->_versionNames[$session['survey_version']]];
 			
 			if(isset($this->_backgroundAnswers['s_'.$session['id']]))
 				foreach($this->_backgroundAnswers['s_'.$session['id']] as $bA)
 					$tempRow[$this->_fields['bF_'.$bA['survey_question']]] = $bA['answer'];
 
-			foreach($this->_groupFields as $gF)
+			foreach($this->_groupFields as $gF){
 				$tempRow[$this->_fields['gF_'.$gF['id']]] = 0;
+				$tempRow['RT_'.$this->_fields['gF_'.$gF['id']]] = 0;
+				$tempRow['num_'.$this->_fields['gF_'.$gF['id']]] = 0;
+				$this->_groupWords[$this->_fields['gF_'.$gF['id']]] = [];
+			}
 
 			if(isset($this->_wordAnswers['s_'.$session['id']]))
 				foreach($this->_wordAnswers['s_'.$session['id']] as $wA){
 					$tempRow[$this->_fields['wF_'.$wA['word']]] = ($wA['isMatch'] == 1 ? '1' : ($wA['isMatch'] == 1 ? $wA['isMatch'] : $wA['answer']));
 					$tempRow['total'] += $wA['isMatch'];
+					$tempRow['num_total'] += $wA['isMatch'];
+					$tempRow['RT_total'] += $wA['reactiontime'];
 					$tempRow[$this->_fields['gF_'.$wA['word_group']]] += $wA['isMatch'];
+					$tempRow['num_'.$this->_fields['gF_'.$wA['word_group']]] += $wA['isMatch'];
+					$tempRow['RT_'.$this->_fields['gF_'.$wA['word_group']]] += $wA['reactiontime'];
+					$this->_groupWords[$this->_fields['gF_'.$wA['word_group']]][] = 1;
 				}
+
+			$tempRow['total'] = $tempRow['total'] / count($this->_wordFields);
+			$tempRow['RT_total'] = $tempRow['RT_total'] / count($this->_wordFields);
+			
+			foreach($this->_groupFields as $gF){
+				$tempRow[$this->_fields['gF_'.$gF['id']]] = $tempRow[$this->_fields['gF_'.$gF['id']]] / count($this->_groupWords[$this->_fields['gF_'.$wA['word_group']]]);
+				$tempRow['RT_'.$this->_fields['gF_'.$gF['id']]] = $tempRow['RT_'.$this->_fields['gF_'.$gF['id']]] / count($this->_groupWords[$this->_fields['gF_'.$wA['word_group']]]);
+			}
 
 			// Need to make sure the csv exporter is not going to stress about different words, maybe not existing other versions
 			foreach($this->_fields as $field)
@@ -57,6 +77,8 @@ class pSurveyExporter{
 			$this->_rows[$session['id']] = $tempRow;
 
 		}
+
+		$this->_done = true;
 
 	}
 
@@ -100,26 +122,34 @@ class pSurveyExporter{
 
 	private function getGroupTotalFields(){
 		$this->_groupFields = $this->_dM->complexQuery("SELECT internID, id FROM survey_word_groups WHERE survey_id = '".$this->_survey['id']."' AND ".$this->_natLang."")->fetchAll();
-		foreach($this->_groupFields as $gF)
+		foreach($this->_groupFields as $gF){
 			$this->_fields['gF_' . $gF['id']] = $gF['internID'] . '_total';
+			$this->_fields['RT_gF_' . $gF['id']] = 'RT_'.$gF['internID'] . '_total';
+			$this->_fields['num_gF_' . $gF['id']] = 'num_'.$gF['internID'] . '_total';
+		}
 
 	}
 
 
 	public function compile(){
+
+		if(!$this->_done)
+			return p::Out('Cannot create csv export...');
+
 		$filename = p::FromRoot('/library/output/data-survey-'.md5(trim(preg_replace('/\W+/', '-', strtolower($this->_survey['survey_name']))).rand()).'.csv');
 		
 		$fp = fopen($filename, 'w');
-		
+		fwrite($fp, pack("CCC",0xef,0xbb,0xbf)); 
 		fputcsv($fp, $this->_fields, ';');
-
-
 		$makeFields = [];
 
 		foreach ($this->_rows as $row){
 			$makeFields = [];
-			foreach($this->_fields as $field)
+			foreach($this->_fields as $field){
+				if(is_float($row[$field]))
+					$row[$field] = number_format($row[$field], 2);
 				$makeFields[] = $row[$field];
+			}
 
 		   fputcsv($fp, $makeFields, ';');
 		}

@@ -215,8 +215,8 @@ return [
 		],
 
 
-		'translations' => [
-			'section_key' => 'translations',
+		'answers' => [
+			'section_key' => 'answers',
 			'menu' => '',
 			'icon' => 'approval',
 			'type' => 'pTableHandler',
@@ -224,14 +224,15 @@ return [
 			'view' => 'pView',
 			'surface' => MANAGE_TRANS_SURVEY,
 			'condition' => false,
+			'order' => ' language ASC ',
 			'is_admin' => true,
 			'is_assistant' => false,
-			'items_per_page' => 7,
+			'items_per_page' => 20,
 			'disable_pagination' => false,
 			'table' => 'survey_correct_translations',
 			'datafields' => [
 				new pDataField('translation', MANAGE_TRANS_TRANS, 'auto', 'input', true, true, true, 'medium', false),
-				new pDataField('survey_word', MANAGE_TRANS_WORD, '10%', 'select', true, true, true, 'small-caps xxxsmall', false, new pSelector('survey_words', null, 'internID', true, 'stimuli')),
+				new pDataField('internID', MANAGE_TRANS_WORD, 'auto', 'input', true, true, true, 'medium', false),
 				new pDataField('language', MANAGE_TRANS_LANG, '10%', 'select', true, true, true, 'small-caps xxxsmall', false, new pSelector('survey_languages', null, 'language_name', true, 'languages')),
 
 				((new pDataField('survey_id', '', 'auto', 'hidden', false, true, false, 'medium', false, @pRegister::arg()['activeSurvey']))),
@@ -355,7 +356,7 @@ return [
 			'disable_pagination' => false,
 			'table' => 'surveys',
 			'datafields' => [
-				new pDataField('survey_name', SURVEY_NAME, 'auto', 'input', true, true, true, 'mmedium', false),
+				new pDataField('survey_name', SURVEY_NAME, 'auto', 'survey-link', true, true, true, 'mmedium', false),
 				new pDataField('survey_logo', SURVEY_LOGO, 'auto', 'input', false, true, false, 'medium', false),
 				new pDataField('survey_status', SURVEY_OPEN, 'auto', 'boolean', true, true, true, '', true),
 				((new pDataField('user_id', '', 'auto', 'hidden', false, true, false, 'medium', false, pUser::read('id')))),

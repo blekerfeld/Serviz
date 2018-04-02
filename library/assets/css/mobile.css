@@ -52,13 +52,6 @@
     margin-top: 10px;
    }
 
-   .selector-tabs-bar{
-      display: none!important;
-   }
-
-   select.selector-tabs-orginial{
-    display: inline;
-   }
 
    div.ulWrap, div.outerwrap{
       margin-left: 0px;

@@ -95,7 +95,8 @@
          "DATE_ADDTIMEZONEINDICATOR":true,
          "DATE_USE12HOUR":true,
          "DATE_SEPERATOR":", ",
-         "DATE_PREPOSITION_TIME":" at "
+         "DATE_PREPOSITION_TIME":" at ",
+         "DATE_MINUTES":"minutes"
       },
       "main_menu":{
          "MMENU_HOME":"Homepage",
@@ -302,6 +303,7 @@
          "SURVEY_STR_BACK":"'Back'", 
          "SURVEY_STR_NEXT":"'Next'", 
          "SURVEY_STR_DONE":"'Done'",
+         "SURVEY_STR_RESTART":"'Restart survey'",
          "SURVEY_Q_TYPE":"Question type",
          "SURVEY_Q_INPUT":"Input field",
          "SURVEY_Q_TEXTAREA":"Text area",
@@ -318,7 +320,9 @@
          "SURVEY_TITLE_MANAGE":"Manage surveys",
          "SURVEY_HALF":"Half points",
          "SURVEY_RIGHT":"Right",
-         "SURVEY_WRONG":"Wrong"
+         "SURVEY_WRONG":"Wrong",
+         "SURVEY_AVG_TIME":"Average completion time",
+         "SURVEY_UNREVISED":"unrevised answers"
       }
    }
 }

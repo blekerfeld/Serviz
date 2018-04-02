@@ -77,6 +77,8 @@ class pDataField{
 			$output = "<a data-tooltip-content='#dropdown_".$md5."' class='ttip ".$this->class."'>... ↓</a><div class='hide'><div id='dropdown_".$md5."' class=''>".p::Markdown($value, false)."</div></div>";
 		}
 
+		
+
 		else
 			$output = "<span class='".$this->class."'>".$value."</span>";
 

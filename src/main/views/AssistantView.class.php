@@ -72,8 +72,19 @@ class pAssistantView extends pView{
 	}
 
 	public function wordAudioPlayer($file, $size){
-		p::Out('<script>createjs.Sound.registerSound("'.p::Url('serviz://library/audio/' . $file).'", "stimulus");window.setTimeout(createjs.Sound.play("stimulus"), 1200);</script>');
-		return "<a class='tooltip actionbutton player-".$size."' href='javascript:void();' onclick='createjs.Sound.play(\"stimulus\");'>".(new pIcon('volume-high', $size))."</a>";
+		$md5 = md5($file.rand());
+		$varname = strtoupper( preg_replace("/[^a-zA-Z0-9]+/", "", $file));
+		return '<script>
+
+		 createjs.Sound.on("fileload", this.loadHandlerSound'.$varname.', this);
+ 		createjs.Sound.registerSound("'.p::Url('serviz://library/audio/' . $file).'", "sound-'.$md5.'");
+ 		function loadHandlerSound'.$varname.'(event) {
+    	 // This is fired for each sound that is registered.
+     		var '.$varname.' = createjs.Sound.play("sound-'.$md5.'");  
+     		'.$varname.'.volume = 1;
+ 		}
+		</script>'."<a class='tooltip actionbutton sound-player player-".$md5." player-".$size."' href='javascript:void();' onclick='var ".$varname." = createjs.Sound.play(\"sound-".$md5."\");  
+     		".$varname.".volume = 1;'>".(new pIcon('volume-high', $size))."</a>";
 	}
 
 	public function script($section){
@@ -110,15 +121,18 @@ class pAssistantView extends pView{
 		});
 
 		function serveCard(){
-			$('.btLoad').slideUp();
+			createjs.Sound.removeAllSounds();
+			$('.btLoad').hide();
 			$('.bottomCard').hide();
-			$('.dotsc').slideDown();
+			$('.dotsc').show();
 			$('.btLoad').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/serve/ajax'.
 	(isset(pRegister::arg()['activeSurvey']) ? '/activeSurvey/'.pRegister::arg()['activeSurvey'] : ''))."', {}, function(){
-				$('.dotsc').slideUp();
-				$('.btLoad').slideDown();
+				$('.dotsc').hide();
+				$('.btLoad').fadeIn('fast', function(){
+					$('.keyup').focus();
+				});
 				$('.bottomCard').show();
-				$('.btCardHelper').hide().attr('style', '').slideDown();
+				$('.btCardHelper').hide().attr('style', '').show();
 			});
 		};
 

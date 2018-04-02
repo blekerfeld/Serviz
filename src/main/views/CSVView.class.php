@@ -5,6 +5,7 @@
 class pCSVView extends pSimpleView{
 
 	public function renderAll(){
+
 		$export = new pSurveyExporter(pRegister::arg()['surveyID']);
 		$export->compile();
 		die();

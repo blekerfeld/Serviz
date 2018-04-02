@@ -107,7 +107,8 @@ class pRevisionView extends pAssistantView{
 		<script type='text/javascript'>
 		$('.button-restart').click(function(){
 			$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/reset/ajax'.(isset(pRegister::arg()['activeSurvey']) ? '/activeSurvey/'.pRegister::arg()['activeSurvey'] : ''))."', {}, function(){
-				serveChoose();
+				
+					$('.btLoad').load('".p::Url('?assistant/revise/activeSurvey/'.pRegister::arg()['activeSurvey'].'/ajax')."');
 			});
 		});	
 		</script>

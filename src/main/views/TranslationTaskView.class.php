@@ -36,9 +36,10 @@ class pTranslationTaskView extends pAssistantView{
 				</div>
 				<div class='btTranslate'>
 					<span class='btLanguage inline-title small'>".$this->_data->activeLang()['language_name']."</span><br />
-					<input placeholder='' class='elastic nWord btInput translation' />
+					<input placeholder='' class='elastic nWord btInput keyup translation' />
 				</div><br />
 				<div class='btButtonBar'>
+				<span class='small float-right'><a href='javascript:void(0);' class='button-back subtle btAction small'>".$this->_data->activeLang()['strRestart']."</a></span>
 					<a class='btAction button-handle blue no-float'>".$this->_data->activeLang()['strNext']."</a>
 					<br id='cl' />
 				</div>
@@ -54,13 +55,28 @@ class pTranslationTaskView extends pAssistantView{
 				$('.translations').elastic();
 
 			});
+			$('.button-back').click(function(){
+				$('.btLoad').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/reset/ajax')."', {}, function(){
+					$('.btLoad').load('".p::Url('?'.pParser::$stApp.$surveyPart.'ask/reset/ajax')."', {}, function(){
+						loadBackground();						
+					});
+					
+				});
+			});
+			
 			$('.button-skip').click(function(){
 				$('.btLoadSide').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/skip/ajax')."', {'skip': ".$data['id']."}, function(){
 					serveCard();
 				});
 			});
+			$('.keyup').keypress(function (e) {
+			  if (e.which == 13) {
+			    $('.button-handle').click();
+			    return false; 
+			  }
+			});
 			$('.button-handle').click(function(){
-				$('.btLoad').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/handle/ajax')."', {'translation': $('.translation').val()}, function(){
+				$('.btLoad').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/handle/ajax')."', {'translation': $('.translation').val() }, function(){
 					serveCard();
 				});
 			});
@@ -84,7 +100,7 @@ class pTranslationTaskView extends pAssistantView{
 				$('.btCardEmpty').hide();
 				$('.bottomCard').hide();
 				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/reset/ajax')."', {'value': $('.translations').val()}, function(){
-						serveChooser();
+						serveChoose();
 				});
 			});
 			

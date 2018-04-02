@@ -24,6 +24,8 @@ class pTranslationTaskHandler extends pAssistantHandler{
 
 	public function serveCard(){
 		
+		$_SESSION['startedTime'] = time();
+
 		if(isset($this->_data[0]))
 		 	return $this->_view->cardTranslate($this->_data[0], $this->_section);
 		 else{
@@ -38,13 +40,16 @@ class pTranslationTaskHandler extends pAssistantHandler{
 		$_SESSION['btSkip-do'][] = $this->_data[0]['id'];
 		$correctTranslations = [];
 
-		$checkMatch = (new pDataModel('survey_correct_translations'))->setCondition(" WHERE survey_word = '".$this->_data[0]['id']."' AND language = '".pRegister::session()['btChooser-ask']."' ")->getObjects();
+		$RT = (time() - $_SESSION['startedTime']);
+
+		$checkMatch = (new pDataModel('survey_correct_translations'))->setCondition(" WHERE internID = '".$this->_data[0]['internID']."' AND language = '".pRegister::session()['btChooser-ask']."' AND survey_id = '".$this->_survey['id']."' ")->getObjects();
 
 		if($checkMatch->fetchAll())
 			foreach($checkMatch->fetchAll() as $translation)
-				$correctTranslations[] = trim(strtolower($translation['translation']));
+				$correctTranslations[] = $translation['translation'];
 
-		(new pDataModel('survey_answers'))->prepareForInsert([$_SESSION['btSurveyID'], $this->_data[0]['id'], $this->_data[0]['survey_word_group'],  pRegister::post()['translation'], ((in_array(trim(strtolower(pRegister::post()['translation'])), $correctTranslations)) ? '1' : '0'), '0'])->cleanCache('survey_questions_answers')->insert();
+		(new pDataModel('survey_answers'))->prepareForInsert([$_SESSION['btSurveyID'], $this->_data[0]['id'], $this->_data[0]['survey_word_group'],  pRegister::post()['translation'], ((in_array(strtolower(pRegister::post()['translation']), $correctTranslations)) ? '1' : '0'), '0', $RT])->cleanCache('survey_questions_answers')->insert();
+	
 	}
 	
 }

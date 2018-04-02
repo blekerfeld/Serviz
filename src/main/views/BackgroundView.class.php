@@ -71,7 +71,9 @@ class pBackgroundView extends pAssistantView{
 				if($data['order_swap'] == 1)
 					$preprocessedOptions = array_reverse($preprocessedOptions);
 				
-				p::Out("<span class='btNative'><select class='btInput answer full-width select-lexcat ". (p::StartsWith($data['type'], 'selector_') ? 'selectorT' : 'select2') ." xxmedium' style='width: 100%'>");
+				p::Out("<span class='btNative'>
+
+					<select class='btInput answer full-width select-lexcat ". (p::StartsWith($data['type'], 'selector_') ? 'selectorT' : 'select2') ." xxmedium' style='width: 100%'>");
 				foreach($preprocessedOptions as $opt)
 					p::Out("<option value='".$opt['dropdown_value']."'>".$opt['dropdown_option']."</option>");
 				p::Out("</select></span>");
@@ -81,9 +83,11 @@ class pBackgroundView extends pAssistantView{
 			p::Out("
 					</div>
 					<div class='btButtonBar'>
+					<span class='small float-right'><a href='javascript:void(0);' class='button-back subtle btAction small'>".$this->_data->activeLang()['strRestart']."</a></span>
 						<a class='btAction button-handle blue medium no-float'>".$this->_data->activeLang()['strNext']."</a>
 						<br id='cl' />
 					</div>
+
 			</div>");
 		}
 		else{
@@ -99,7 +103,7 @@ class pBackgroundView extends pAssistantView{
 					</div>")."
 			</div>");
 			if($data['force_noButtons'] == 1)
-				(new pDataModel('survey_sessions'))->complexQuery("UPDATE survey_sessions SET doneStatus = '1' WHERE id = ".$_SESSION['btSurveyID']);
+				(new pDataModel('survey_sessions'))->complexQuery("UPDATE survey_sessions SET doneStatus = '1', date_completed = NOW() WHERE id = ".$_SESSION['btSurveyID']);
 		}
 
 		$surveyPart = ((isset($this->_data->_activeSection['check_survey']) AND $this->_data->_activeSection['check_survey'] == true) ? '/'.p::HashId($this->_data->_surveyID).'/' : '/');

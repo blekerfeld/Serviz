@@ -46,7 +46,7 @@ class pMagicField{
 				break;
 
 			case 'markdown-hide':
-				p::Out("<textarea  name='".$this->_field->name."' class='gtEditor field_'".$this->_field->name." ".$this->_field->class."'>".$this->_value."</textarea>");
+				p::Out("<textarea name='".$this->_field->name."' class='gtEditor field_".$this->_field->name."'>".$this->_value."</textarea>");
 				break;
 
 			case 'boolean':
