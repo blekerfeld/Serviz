@@ -155,6 +155,15 @@ class pSurveyExporter{
 		if(!$this->_done)
 			return p::Out('Cannot create csv export...');
 
+		$tempGoThroughFields = [];
+
+		foreach($this->_fields as $key => $field)
+			if(isset($tempGoThroughFields[$field]))
+				unset($this->_fields[$key]);
+			else
+				$tempGoThroughFields[$field] = 1;
+			
+
 		$filename = p::FromRoot('/library/output/data-survey-'.md5(trim(preg_replace('/\W+/', '-', strtolower($this->_survey['survey_name']))).rand()).'.csv');
 		
 		$fp = fopen($filename, 'w');
@@ -169,9 +178,9 @@ class pSurveyExporter{
 					$row[$field] = number_format($row[$field], 2);
 				$makeFields[] = $row[$field];
 			}
-
 		   fputcsv($fp, $makeFields, ';');
 		}
+
 		header('Content-Type: application/csv');
    		// tell the browser we want to save it instead of displaying it
     	header('Content-Disposition: attachment; filename="output.csv";');
