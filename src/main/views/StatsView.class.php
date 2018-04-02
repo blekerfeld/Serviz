@@ -14,6 +14,11 @@ class pStatsView extends pView{
 		p::Out("<div class='statsView'>".(new pIcon('notification-clear-all'))." <span class='statsNum'>".$this->_data->_unrevised['unrevisedCount']."</span><br />".SURVEY_UNREVISED."</div>");
 		p::Out("<div class='statsView'>".(new pIcon('ticket-account'))." <span class='statsNum'>".$this->_data->_sessionsInfo['totalCount']."</span><br />".SURVEY_SESSIONS_ALL."</div>");
 		p::Out("<div class='statsView'>".(new pIcon('check-all'))." <span class='statsNum'>".$this->_data->_sessionsInfo['doneCount']."</span><br />".SURVEY_SESSIONS_DONE."</div>");
+		
+		foreach($this->_data->_languagesCount as $name => $count)
+			p::Out("<div class='statsView'>".(new pIcon('fa-user'))." <span class='statsNum'>".$count."</span><br />".$name."</div>");
+
+
 		p::Out("</div>
 				<div class='btButtonBar center top'>
 					<a class='btAction green no-float button-revise' href='javascript:void(0);'>".(new pIcon('calendar-multiple-check'))." ".SURVEY_REVISE."</a>
