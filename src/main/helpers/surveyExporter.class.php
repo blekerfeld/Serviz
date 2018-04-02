@@ -4,7 +4,7 @@
 
 class pSurveyExporter{
 
-	private $_language, $_natLang, $_survey, $_fields = ['id', 'ipadress', 'language', 'total', 'RT_total', 'num_total', 'version'], $_dM, $_backgroundFields, $_wordFields, $_groupFields, $_groupWords = [], $_rows = [], $_sessions = [], $_versionNames = [], $_wordAnswers = [], $_backgroundAnswers = [], $_done = false; 
+	private $_language, $_natLang, $_survey, $_fields = ['id', 'ipadress', 'language', 'total', 'RT_total', 'num_total', 'version'], $_dM, $_backgroundFields, $_wordFields, $_groupFields, $_groupWords = [], $_rows = [], $_sessions = [], $_versionNames = [], $_wordAnswers = [], $_backgroundAnswers = [], $_done = false, $_modelAnswers; 
 
 	public function __toString(){
 		return; 
@@ -32,6 +32,22 @@ class pSurveyExporter{
 		$this->fetchBackgroundAnswers();
 		$this->fetchWordAnswers();
 
+
+		if(!$this->_modelAnswers = $this->_dM->complexQuery("SELECT * FROM survey_correct_translations WHERE survey_id = '".$id."'")->fetchAll())
+			return;
+
+		$modelAnswersTemp = [];
+
+		foreach($this->_modelAnswers as $mA){
+			if(!isset($modelAnswersTemp[$mA['internID']]))
+				$modelAnswersTemp[$mA['internID']] = [];
+			$modelAnswersTemp[$mA['internID']][] = $mA['translation'];
+		}
+
+		$this->_modelAnswers = $modelAnswersTemp;
+
+
+
 		foreach($this->_sessions as $session){
 			// Create a temporary row
 
@@ -50,7 +66,10 @@ class pSurveyExporter{
 
 			if(isset($this->_wordAnswers['s_'.$session['id']]))
 				foreach($this->_wordAnswers['s_'.$session['id']] as $wA){
-					$tempRow[$this->_fields['wF_'.$wA['word']]] = ($wA['isMatch'] == 1 ? '1' : ($wA['isMatch'] == 1 ? $wA['isMatch'] : $wA['answer']));
+					// Time for a final control!
+					if($wA['isMatch'] == 0)
+						$wA['isMatch'] = (in_array(trim(strtolower($wA['answer'])), $this->_modelAnswers[$wA['internID']]) ? 1 : 0);
+					$tempRow[$this->_fields['wF_'.$wA['word_id']]] = ($wA['isMatch'] != 0 ? $wA['isMatch'] : ($wA['revised'] == 1 ? 0 : $wA['answer']));
 					$tempRow['total'] += $wA['isMatch'];
 					$tempRow['num_total'] += $wA['isMatch'];
 					$tempRow['RT_total'] += $wA['reactiontime'];
@@ -89,7 +108,7 @@ class pSurveyExporter{
 	}
 
 	private function fetchWordAnswers(){
-		if($fetch = $this->_dM->complexQuery("SELECT * FROM survey_answers AS ba JOIN survey_sessions ON ba.survey_session = survey_sessions.id AND survey_sessions.survey_id = '".$this->_survey['id']."';"))
+		if($fetch = $this->_dM->complexQuery("SELECT *, sw.internID as internID, sw.id AS word_id FROM survey_answers AS ba JOIN survey_sessions ON ba.survey_session = survey_sessions.id AND survey_sessions.survey_id = '".$this->_survey['id']."' JOIN survey_words AS sw ON sw.id = ba.word;"))
 			foreach($fetch->fetchAll() as $wA)
 				$this->_wordAnswers['s_'.$wA['survey_session']][] = $wA;
 	}
@@ -115,13 +134,13 @@ class pSurveyExporter{
 	}
 
 	private function getTaskFields(){
-		$this->_wordFields = $this->_dM->complexQuery("SELECT internID, id FROM survey_words WHERE survey_id = '".$this->_survey['id']."' AND ".$this->_natLang."")->fetchAll();
+		$this->_wordFields = $this->_dM->complexQuery("SELECT internID, id FROM survey_words WHERE survey_id = '".$this->_survey['id']."' AND language = '".$this->_natLang."'")->fetchAll();
 		foreach($this->_wordFields as $wF)
 			$this->_fields['wF_' . $wF['id']] = $wF['internID'];
 	}
 
 	private function getGroupTotalFields(){
-		$this->_groupFields = $this->_dM->complexQuery("SELECT internID, id FROM survey_word_groups WHERE survey_id = '".$this->_survey['id']."' AND ".$this->_natLang."")->fetchAll();
+		$this->_groupFields = $this->_dM->complexQuery("SELECT internID, id FROM survey_word_groups WHERE survey_id = '".$this->_survey['id']."' AND language = '".$this->_natLang."'")->fetchAll();
 		foreach($this->_groupFields as $gF){
 			$this->_fields['gF_' . $gF['id']] = $gF['internID'] . '_total';
 			$this->_fields['RT_gF_' . $gF['id']] = 'RT_'.$gF['internID'] . '_total';
