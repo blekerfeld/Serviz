@@ -46,9 +46,9 @@ class pTranslationTaskHandler extends pAssistantHandler{
 
 		if($checkMatch->fetchAll())
 			foreach($checkMatch->fetchAll() as $translation)
-				$correctTranslations[] = $translation['translation'];
+				$correctTranslations[] = trim(strtolower($translation['translation']));
 
-		(new pDataModel('survey_answers'))->prepareForInsert([$_SESSION['btSurveyID'], $this->_data[0]['id'], $this->_data[0]['survey_word_group'],  pRegister::post()['translation'], ((in_array(strtolower(pRegister::post()['translation']), $correctTranslations)) ? '1' : '0'), '0', $RT])->cleanCache('survey_questions_answers')->insert();
+		(new pDataModel('survey_answers'))->prepareForInsert([$_SESSION['btSurveyID'], $this->_data[0]['id'], $this->_data[0]['survey_word_group'],  pRegister::post()['translation'], ((in_array(trim(strtolower(pRegister::post()['translation'])), $correctTranslations)) ? '1' : '0'), '0', $RT])->cleanCache('survey_questions_answers')->insert();
 	
 	}
 	

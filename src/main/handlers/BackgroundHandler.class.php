@@ -63,7 +63,7 @@ class pBackgroundHandler extends pAssistantHandler{
 		// Assign the version that is least used up untill now! :) 
 		$_SESSION['btSurveyVersion'] = (new pDataModel('survey_versions'))->complexQuery("SELECT id FROM survey_versions ORDER BY usageCount ASC LIMIT 1;")->fetchAll()[0]['id'];
 		(new pDataModel('survey_versions'))->complexQuery("UPDATE survey_versions SET usageCount = usageCount + 1 WHERE id = " . $_SESSION['btSurveyVersion']);
-		$_SESSION['btSurveyID'] = (	new pDataModel('survey_sessions'))->prepareForInsert([$this->getUserIP(), 'Somewhere', pRegister::post()['btChooser'], 'NOW()', '0000-00-00 00:00:00', '0', $_SESSION['btSurveyVersion'], $this->_surveyID])->insert();
+		$_SESSION['btSurveyID'] = (	new pDataModel('survey_sessions'))->prepareForInsert([$this->getUserIP(), 'Somewhere', pRegister::post()['btChooser'], 'NOW()', 'NOW()', '0', $_SESSION['btSurveyVersion'], $this->_surveyID])->insert();
 		$_SESSION['btChooser-do'] = 0;
 		$_SESSION['btSkip-'.$this->_section] = array();
 		return pRegister::session('btChooser-'.$this->_section, pRegister::post()['btChooser']);

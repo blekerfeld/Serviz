@@ -3,4 +3,6 @@
 // file: index.php
 
 // Doing our thing and kill the page afterwards...
-(require 'Configuration.php')->dispatch()->render()->quit();;
+
+
+(require 'Configuration.php')->dispatch()->render()->quit();
