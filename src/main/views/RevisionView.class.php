@@ -84,7 +84,20 @@ class pRevisionView extends pAssistantView{
 					serveCard();
 				});
 			});
-
+			$('.btCard').keypress(function (e) {
+			  if (e.which == 83) {
+			    $('.button-right').click();
+			    return false; 
+			  }
+			  if (e.which ==76) {
+			    $('.button-wrong').click();
+			    return false; 
+			  }
+			  if (e.which == 72) {
+			    $('.button-half').click();
+			    return false; 
+			  }
+			});
 			$('.button-wrong').click(function(){
 				$('.btLoad').load('".p::Url('?'.pParser::$stApp.'/'.$section.'/handle/ajax'.(isset(pRegister::arg()['activeSurvey']) ? '/activeSurvey/'.pRegister::arg()['activeSurvey'] : ''))."', {'value': 0}, function(){
 					serveCard();
