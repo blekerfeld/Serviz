@@ -41,8 +41,10 @@ class pBackgroundHandler extends pAssistantHandler{
 	public function ajaxHandle(){
 		// Make this somehting else
 		$_SESSION['btSkip-ask'][] = $this->_data[0]['id'];
-
-		(new pDataModel('survey_background_answers'))->prepareForInsert([$_SESSION['btSurveyID'], $this->_data[0]['id'], pRegister::post()['answer']])->cleanCache('survey_questions_answers')->insert();
+		$answer = pRegister::post()['answer'];
+		if(is_array($answer))
+			$answer = implode('; ', $answer);
+		(new pDataModel('survey_background_answers'))->prepareForInsert([$_SESSION['btSurveyID'], $this->_data[0]['id'], $answer])->cleanCache('survey_questions_answers')->insert();
 
 	}
 
