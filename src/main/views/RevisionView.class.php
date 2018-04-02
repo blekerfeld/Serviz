@@ -55,7 +55,7 @@ class pRevisionView extends pAssistantView{
 				</div>
 
 				<div class='btButtonBar center'>
-					<input class='keyup btInput small' style='width: 40px;' />
+					<input class='keyup btInput small' style='width: 40px;opacity: 0.02;' />
 					<br />
 					<a class='btAction button-right green medium no-float'>" . (new pIcon('thumb-up')) . " ".SURVEY_RIGHT."</a>
 					<a class='btAction button-half blue medium no-float'>" . (new pIcon('thumbs-up-down')) . " ".SURVEY_HALF."</a>
@@ -87,8 +87,8 @@ class pRevisionView extends pAssistantView{
 				});
 			});
 			$('.button-back').click(function(){
-				$('.btLoad').load('".p::Url('?'.pParser::$stApp.$surveyPart.$section.'/reset/ajax')."', {}, function(){
-					$('.btLoad').load('".p::Url('?'.pParser::$stApp.$surveyPart.'ask/reset/ajax')."', {}, function(){
+				$('.btLoad').load('".p::Url('?assistant/revise/reset/ajax/activeSurvey/'.pRegister::arg()['activeSurvey'])."', {}, function(){
+					$('.btLoad').load('".p::Url('?assistant/revise/ajax/activeSurvey/'.pRegister::arg()['activeSurvey'])."', {}, function(){
 						loadBackground();						
 					});
 					
@@ -96,15 +96,15 @@ class pRevisionView extends pAssistantView{
 			});
 			
 			$('.keyup').keypress(function (e) {
-			  if (e.which == 83) {
+			  if (e.which == 108) {
 			    $('.button-right').click();
 			    return false; 
 			  }
-			  if (e.which == 76) {
+			  if (e.which == 115) {
 			    $('.button-wrong').click();
 			    return false; 
 			  }
-			  if (e.which == 72) {
+			  if (e.which == 104) {
 			    $('.button-half').click();
 			    return false; 
 			  }
