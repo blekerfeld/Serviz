@@ -69,7 +69,7 @@ class pSurveyExporter{
 					// Time for a final control!
 					if($wA['isMatch'] == 0)
 						$wA['isMatch'] = (in_array(trim(strtolower($wA['answer'])), $this->_modelAnswers[$wA['internID']]) ? 1 : 0);
-					$tempRow[$this->_fields['wF_'.$wA['word_id']]] = ($wA['isMatch'] != 0 ? $wA['isMatch'] : ($wA['revised'] == 1 ? 0 : $wA['answer']));
+					$tempRow[$this->_fields['wF_'.$wA['word_id']]] = ($wA['isMatch'] != 0 ? $wA['isMatch'] : ($wA['revised'] == 1 ? 0 : (trim($wA['answer']) == '' ? 0 : $wA['answer'])));
 					$tempRow['total'] += $wA['isMatch'];
 					$tempRow['num_total'] += $wA['isMatch'];
 					$tempRow['RT_total'] += $wA['reactiontime'];
