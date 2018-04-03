@@ -247,6 +247,39 @@ return [
 			'save_strings' => $saveStrings,
 		],
 
+		'rejections' => [
+			'section_key' => 'rejections',
+			'menu' => '',
+			'icon' => 'debug-step-over',
+			'type' => 'pTableHandler',
+			'desc' => '',
+			'view' => 'pView',
+			'surface' => MANAGE_REJECT,
+			'condition' => false,
+			'order' => ' language ASC ',
+			'is_admin' => true,
+			'is_assistant' => false,
+			'items_per_page' => 20,
+			'disable_pagination' => false,
+			'table' => 'survey_wrong_translations',
+			'datafields' => [
+				new pDataField('translation', MANAGE_TRANS_TRANS, 'auto', 'input', true, true, true, 'medium', false),
+				new pDataField('internID', MANAGE_TRANS_WORD, 'auto', 'input', true, true, true, 'medium', false),
+				new pDataField('language', MANAGE_TRANS_LANG, '10%', 'select', true, true, true, 'small-caps xxxsmall', false, new pSelector('survey_languages', null, 'language_name', true, 'languages')),
+
+				((new pDataField('survey_id', '', 'auto', 'hidden', false, true, false, 'medium', false, @pRegister::arg()['activeSurvey']))),
+			],
+			'actions_item' => [
+				'edit' => $action_edit,
+				'remove' => $action_remove,
+			],
+			'actions_bar' => [
+				'new' => ['new', MANAGE_REJECT_ADD, 'fa-plus-circle fa-12', 'btAction no-float small', null, null],
+			],
+			'save_strings' => $saveStrings,
+		],
+
+
 
 		'versions' => [
 			'section_key' => 'versions',

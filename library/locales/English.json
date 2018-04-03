@@ -261,6 +261,8 @@
          "MANAGE_TRANS_ADD":"Add new possible answer",
          "MANAGE_TRANS_WORD":"Stimulus",
          "MANAGE_TRANS_SURVEY":"Accepted answers",
+         "MANAGE_REJECT":"Rejected answers",
+         "MANAGE_REJECT_ADD":"Add new rejected answer",
          "MANAGE_STIM_ID":"Intern name",
          "MANAGE_STIM_ADD":"Add stimulus",
          "MANAGE_STIM_GROUP":"Stimulus group",
