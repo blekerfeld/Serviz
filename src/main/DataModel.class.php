@@ -263,6 +263,8 @@ class pDataModel {
 
 		p::$db->cacheQuery("INSERT INTO ".$this->_table." $fieldString  VALUES (".$this->_valuestring.");");
 
+		$_SESSION['lastinsert'] = "INSERT INTO ".$this->_table." $fieldString  VALUES (".$this->_valuestring.");";
+
 		return p::$db->lastInsertId();
 	}
 

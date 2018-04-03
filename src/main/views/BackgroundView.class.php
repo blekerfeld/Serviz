@@ -83,7 +83,7 @@ class pBackgroundView extends pAssistantView{
 			p::Out("
 					</div>
 					<div class='btButtonBar'>
-					<span class='small float-right'><a href='javascript:void(0);' class='button-back subtle btAction small'>".$this->_data->activeLang()['strRestart']."</a></span>
+					<span class='small float-right'><a href='javascript:void(0);' class='button-back subtle btAction '>".$this->_data->activeLang()['strRestart']."</a></span>
 						<a class='btAction button-handle blue medium no-float'>".$this->_data->activeLang()['strNext']."</a>
 						<br id='cl' />
 					</div>
