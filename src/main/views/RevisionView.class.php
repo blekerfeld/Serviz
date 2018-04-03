@@ -96,11 +96,11 @@ class pRevisionView extends pAssistantView{
 			});
 			
 			$('.keyup').keypress(function (e) {
-			  if (e.which == 108) {
+			  if (e.which == 115) {
 			    $('.button-right').click();
 			    return false; 
 			  }
-			  if (e.which == 115) {
+			  if (e.which == 108) {
 			    $('.button-wrong').click();
 			    return false; 
 			  }
