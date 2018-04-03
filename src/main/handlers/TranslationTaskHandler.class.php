@@ -48,13 +48,15 @@ class pTranslationTaskHandler extends pAssistantHandler{
 		$checkMatchWrong = (new pDataModel('survey_wrong_translations'))->setCondition(" WHERE internID = '".$this->_data[0]['internID']."' AND language = '".pRegister::session()['btChooser-ask']."' AND survey_id = '".$this->_survey['id']."' ")->getObjects();
 
 		if($checkMatchCorrect->fetchAll())
-			foreach($checkMatch->fetchAll() as $translation)
+			foreach($checkMatchCorrect->fetchAll() as $translation)
 				$correctTranslations[] = trim(strtolower($translation['translation']));
 		if($checkMatchWrong->fetchAll())
-			foreach($checkMatch->fetchAll() as $translation)
+			foreach($checkMatchWrong->fetchAll() as $translation)
 				$wrongTranslations[] = trim(strtolower($translation['translation']));
 
-		(new pDataModel('survey_answers'))->prepareForInsert([$_SESSION['btSurveyID'], $this->_data[0]['id'], $this->_data[0]['survey_word_group'],  pRegister::post()['translation'], ((in_array(trim(strtolower(pRegister::post()['translation'])), $correctTranslations)) ? '1' : '0'), ((in_array(trim(strtolower(pRegister::post()['translation'])), $wrongTranslations)) ? '1' : '0'), $RT])->cleanCache('survey_questions_answers')->insert();
+		$data = [$_SESSION['btSurveyID'], $this->_data[0]['id'], $this->_data[0]['survey_word_group'],  pRegister::post()['translation'], ((in_array(trim(strtolower(pRegister::post()['translation'])), $correctTranslations)) ? '1' : '0'), ((in_array(trim(strtolower(pRegister::post()['translation'])), $wrongTranslations)) ? '1' : '0'), $RT];
+
+		(new pDataModel('survey_answers'))->prepareForInsert($data)->cleanCache('survey_questions_answers')->insert();
 	
 	}
 	
