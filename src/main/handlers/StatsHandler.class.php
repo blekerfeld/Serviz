@@ -8,8 +8,6 @@ class pStatsHandler extends pHandler{
 
 	public function render(){
 
-		var_dump($_SESSION['lastinsert']);
-
 		if(!isset(pRegister::arg()['activeSurvey']))
 			p::Url('?', true);
 
