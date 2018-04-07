@@ -17,7 +17,8 @@ class pUser{
 
 		// Overwrite the loaded user
 		if(isset($id)){
-			self::$dataModel->complexQuery("SELECT * FROM users WHERE id = '".$id."'");
+			self::$dataModel->setCondition(" WHERE id = '".$id."'")->getObjects();
+
 			if(array_key_exists(0, self::$dataModel->data()->fetchAll()))
 				return self::load(self::$dataModel->data()->fetchAll()[0]);
 			else
@@ -97,7 +98,10 @@ class pUser{
 		if(!isset($_COOKIE['pKeepLogged']))
 			if(isset($_SESSION['pUser'])){
 				self::$dataModel->getSingleObject($_SESSION['pUser']);
-				return self::load(self::$dataModel->data()->fetchAll()[0]);
+				if(isset(self::$dataModel->data()->fetchAll()[0]))
+					return self::load(self::$dataModel->data()->fetchAll()[0]);
+				else
+					return self::load(self::$dataModel->getSingleObject(0)->fetchAll()[0]);
 			}
 
 		if(isset($_COOKIE['pKeepLogged']))

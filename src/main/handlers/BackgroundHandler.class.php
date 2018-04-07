@@ -73,5 +73,13 @@ class pBackgroundHandler extends pAssistantHandler{
 		return $this->_dataModel->complexQuery("SELECT SUM(isMatch) AS TotalCorrect, COUNT(sa.id) AS AnswerCount, (SELECT count(id) AS TotalCount FROM survey_words WHERE survey_version = '".$_SESSION['btSurveyVersion']."' AND survey_id = '".$this->_surveyID."') AS TotalCount FROM survey_answers AS sa JOIN survey_sessions AS ss ON ss.id = sa.survey_session WHERE sa.survey_session = '".$_SESSION['btSurveyID']."' AND ss.survey_version = '".$_SESSION['btSurveyVersion']."';")->fetchAll()[0];
 	}
 
+	public function getWrongWords(){
+		return $this->_dataModel->complexQuery("SELECT DISTINCT(sw.internID) FROM survey_answers AS sa JOIN survey_sessions AS ss ON ss.id = sa.survey_session JOIN survey_words AS sw WHERE sa.survey_session = '".$_SESSION['btSurveyID']."' AND ss.survey_version = '".$_SESSION['btSurveyVersion']."' AND sa.word = sw.id AND sa.isMatch = 0;")->fetchAll();
+	}
+
+	public function getRightWords(){
+		return $this->_dataModel->complexQuery("SELECT DISTINCT(sw.internID) FROM survey_answers AS sa JOIN survey_sessions AS ss ON ss.id = sa.survey_session JOIN survey_words AS sw WHERE sa.survey_session = '".$_SESSION['btSurveyID']."' AND ss.survey_version = '".$_SESSION['btSurveyVersion']."' AND sa.word = sw.id AND sa.isMatch = 1;")->fetchAll();
+	}
+
 	
 }

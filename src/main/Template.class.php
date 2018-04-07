@@ -25,7 +25,7 @@ class pTemplate{
   }
 
 	protected function loadCSS($stylesheet){
-		$this->_stylesheets[] = "<link rel='stylesheet' href='".p::Url('library/assets/css/'.$stylesheet)."'>";
+		$this->_stylesheets[] = "<link rel='stylesheet' href='https://cdn.rawgit.com/blekerfeld/Serviz/master/library/assets/css/".$stylesheet."'>";
 	}
 
   protected function pageWidthCSS(){
@@ -70,7 +70,7 @@ class pTemplate{
   }
 
 	protected function loadJavascript($url){
-		$this->_scripts[] = "<script type='text/javascript' src='".p::Url('library/assets/js/'.$url)."'></script>";
+		$this->_scripts[] = "<script type='text/javascript' src='https://cdn.rawgit.com/blekerfeld/Serviz/master/library/assets/js/".$url."'></script>";
 	}
 
   public static function allowTabs(){

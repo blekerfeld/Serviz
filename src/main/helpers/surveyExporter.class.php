@@ -4,7 +4,7 @@
 
 class pSurveyExporter{
 
-	private $_language, $_natLang, $_survey, $_fields = ['id', 'ipadress', 'language', 'total', 'RT_total', 'num_total', 'version'], $_dM, $_backgroundFields, $_wordFields, $_groupFields, $_groupWords = [], $_rows = [], $_sessions = [], $_versionNames = [], $_wordAnswers = [], $_backgroundAnswers = [], $_done = false, $_modelAnswers; 
+	private $_language, $_natLang, $_survey, $_fields = ['id', 'session_id', 'ipadress', 'language', 'total', 'RT_total', 'num_total', 'audio', 'RT_audio', 'num_audio', 'version'], $_dM, $_backgroundFields, $_wordFields, $_groupFields, $_groupWords = [], $_rows = [], $_sessions = [], $_versionNames = [], $_wordAnswers = [], $_backgroundAnswers = [], $_done = false, $_modelAnswers, $_audioOnly = [], $_textOnly = []; 
 
 	public function __toString(){
 		return; 
@@ -47,11 +47,11 @@ class pSurveyExporter{
 		$this->_modelAnswers = $modelAnswersTemp;
 
 
-
+		$i = 0;
 		foreach($this->_sessions as $session){
 			// Create a temporary row
-
-			$tempRow = ['id' => $session['id'], 'total' => 0, 'RT_total' => 0, 'num_total' => 0, 'ipadress' => $session['ipadress'], 'language' => $session['language'], 'version' => $this->_versionNames[$session['survey_version']]];
+			$i++;
+			$tempRow = ['id' => $i, 'session_id' => $session['id'], 'total' => 0, 'RT_total' => 0, 'num_total' => 0, 'ipadress' => $session['ipadress'], 'language' => $session['language'], 'version' => $this->_versionNames[$session['survey_version']]];
 			
 			if(isset($this->_backgroundAnswers['s_'.$session['id']]))
 				foreach($this->_backgroundAnswers['s_'.$session['id']] as $bA)
@@ -69,7 +69,15 @@ class pSurveyExporter{
 					// Time for a final control!
 					if($wA['isMatch'] == 0)
 						$wA['isMatch'] = (in_array(trim(strtolower($wA['answer'])), $this->_modelAnswers[$wA['internID']]) ? 1 : 0);
+					
 					$tempRow[$this->_fields['wF_'.$wA['word_id']]] = ($wA['isMatch'] != 0 ? $wA['isMatch'] : ($wA['revised'] == 1 ? 0 : (trim($wA['answer']) == '' ? 0 : $wA['answer'])));
+
+					if(isset($this->_fields['wF_a_'.$wA['word_id']]))
+						$tempRow[$this->_fields['wF_a_'.$wA['word_id']]] = ($wA['isMatch'] != 0 ? $wA['isMatch'] : ($wA['revised'] == 1 ? 0 : (trim($wA['answer']) == '' ? 0 : $wA['answer'])));
+					
+					if(isset($this->_fields['wF_t_'.$wA['word_id']]))
+						$tempRow[$this->_fields['wF_t_'.$wA['word_id']]] = ($wA['isMatch'] != 0 ? $wA['isMatch'] : ($wA['revised'] == 1 ? 0 : (trim($wA['answer']) == '' ? 0 : $wA['answer'])));
+
 					$tempRow['total'] += $wA['isMatch'];
 					$tempRow['num_total'] += $wA['isMatch'];
 					$tempRow['RT_total'] += $wA['reactiontime'];
@@ -135,8 +143,13 @@ class pSurveyExporter{
 
 	private function getTaskFields(){
 		$this->_wordFields = $this->_dM->complexQuery("SELECT internID, id FROM survey_words WHERE survey_id = '".$this->_survey['id']."' AND language = '".$this->_natLang."'")->fetchAll();
-		foreach($this->_wordFields as $wF)
+		foreach($this->_wordFields as $wF){
 			$this->_fields['wF_' . $wF['id']] = $wF['internID'];
+			if($wF['audiofile'] != '')
+				$this->_fields['wF_a_' . $wF['id']] = $wF['internID'].'_audio';
+			else
+				$this->_fields['wF_t_' . $wF['id']] = $wF['internID'].'_text';
+		}
 	}
 
 	private function getGroupTotalFields(){

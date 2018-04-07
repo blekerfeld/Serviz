@@ -77,7 +77,7 @@ class pAssistantView extends pView{
 		return '<script>
 
 		 createjs.Sound.on("fileload", this.loadHandlerSound'.$varname.', this);
- 		createjs.Sound.registerSound("'.p::Url('serviz://library/audio/' . $file).'", "sound-'.$md5.'");
+ 		createjs.Sound.registerSound("'.p::Url('https://cdn.rawgit.com/blekerfeld/Serviz/master/library/audio/' . $file).'", "sound-'.$md5.'");
  		function loadHandlerSound'.$varname.'(event) {
     	 // This is fired for each sound that is registered.
      		var '.$varname.' = createjs.Sound.play("sound-'.$md5.'");  

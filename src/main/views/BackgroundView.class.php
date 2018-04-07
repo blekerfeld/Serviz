@@ -28,7 +28,15 @@ class pBackgroundView extends pAssistantView{
 	
 	public function giveFeedBack($data){
 		$feedback = $this->_data->getFeedback();
-		$data['slideText'] = str_replace('%ANSWERS%', $feedback['AnswerCount'], str_replace('%TOTAL%', $feedback['TotalCount'], str_replace('%CORRECT%', $feedback['TotalCorrect'], $data['slideText']))); 
+		$wrongWords = $this->_data->getWrongWords();
+		$rightWords = $this->_data->getRightWords();
+		$wrongString = [];
+		$rightString = [];
+		foreach($wrongWords as $wAns)
+			$wrongString[] = $wAns['internID'];
+		foreach($rightWords as $rAns)
+			$rightString[] = $rAns['internID'];
+		$data['slideText'] = str_replace('%WRONGSTR%', implode(', ', $wrongString), str_replace('%RIGHTSTR%', implode(', ', $rightString), str_replace('%ANSWERS%', $feedback['AnswerCount'], str_replace('%TOTAL%', $feedback['TotalCount'], str_replace('%CORRECT%', $feedback['TotalCorrect'], $data['slideText']))))); 
 		return p::Markdown($data['slideText']);		
 	}
 
