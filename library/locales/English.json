@@ -320,9 +320,9 @@
          "SURVEY_REVISE":"Revise answers",
          "SURVEY_TITLE_DO":"Survey",
          "SURVEY_TITLE_MANAGE":"Manage surveys",
-         "SURVEY_HALF":"Half points",
-         "SURVEY_RIGHT":"Right",
-         "SURVEY_WRONG":"Wrong",
+         "SURVEY_HALF":"Half points [ h ]",
+         "SURVEY_RIGHT":"Right [ s ]",
+         "SURVEY_WRONG":"Wrong [ l ]",
          "SURVEY_AVG_TIME":"Average completion time",
          "SURVEY_UNREVISED":"unrevised answers"
       }
