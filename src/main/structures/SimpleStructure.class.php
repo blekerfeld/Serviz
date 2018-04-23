@@ -28,7 +28,6 @@ class pSimpleStructure extends pStructure{
 			return p::Out("<div class='btCard minimal admin'>".pTemplate::NoticeBox('fa-info-circle fa-12', DA_PERMISSION_ERROR, 'danger-notice')."</div>");
 			
 		// Call the render function of the simple view
-
 		if(isset($this->_dispatchStructure['view_function'])){
 			$funcName = $this->_dispatchStructure['view_function'];
 			return $this->_view->$funcName();

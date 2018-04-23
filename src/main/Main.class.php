@@ -326,4 +326,17 @@
 			return implode($sep, $arr);
 	}
 
+	public function Math($string){
+
+		$parser = new MathParser\StdMathParser();
+
+		// Generate an abstract syntax tree
+		$AST = $parser->parse($string);
+
+		// Do something with the AST, e.g. evaluate the expression:
+		$evaluator = new MathParser\Interpreting\Evaluator();
+		$value = $AST->accept($evaluator);
+		return $value;
 	}
+
+}

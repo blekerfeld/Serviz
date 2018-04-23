@@ -43,6 +43,7 @@
          "ERROR_404_MESSAGE":"We are sorry, the page or file you requested could not be found.",
          "SAVED_ERROR":"An error occured while saving",
          "SAVED_EMPTY":"Please submit all required information.",
+         "SAVED_EMPTY_M":"",
          "ENTRY_NOT_FOUND":"The requested entry could not be found.",
          "LOGIN_ERROR":"Username and/or password are not correct.",
          "LOGIN_ERROR_ACTIVATED":"This account is not activated yet. Please check your mail for the activation link or contact the server administrator.",

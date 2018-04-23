@@ -3,7 +3,7 @@
 // file: dispatcher.class.php
 
 
-// This class takes the url-querystring, reads and understands it (with help of dispatch.struct.php in the structure-folder) and creates all the parsers and objects needed in order to route to the desired place.
+// This class takes the url-querystring, reads and understands it (with help of Guide.php in the src-folder) and creates all the parsers and objects needed in order to route to the desired place.
 
 class pDispatcher {
 
@@ -14,11 +14,16 @@ class pDispatcher {
 	public static $active, $structure;
 
 	public function __construct($overrideQueryStringIfEmpty = false){
+		
+		// Setting the query
 		$query = $_SERVER['QUERY_STRING'];
+		
 		if($overrideQueryStringIfEmpty == true AND $query == '')
 				$query = 'auth/login';
 		$this->query = $query;
-		pRegister::queryString($this->query);		
+
+		pRegister::queryString($this->query);
+
 		// Let's pack some superglobals inside pRegister
 		pRegister::session($_SESSION);
 		pRegister::post($_POST);
@@ -29,6 +34,7 @@ class pDispatcher {
 		self::$structure = $this->_dispatchData;
 		unset($this->_dispatchData['MAGIC_MENU']);
 		unset($this->_dispatchData['MAGIC_MARKDOWN']);
+		unset($this->_dispatchData['MAGIC_MARKDOWN_TITLS']);
 	}
 
 	public function compile(){

@@ -4,5 +4,5 @@
 
 // Doing our thing and kill the page afterwards...
 
-
+// Doing our thing and kill the page afterwards...
 (require 'Configuration.php')->dispatch()->render()->quit();

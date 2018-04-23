@@ -37,6 +37,10 @@ class pTranslationTaskHandler extends pAssistantHandler{
 
 	public function ajaxHandle(){
 
+		// Temporary bug fix! to do: something better
+		if(trim(pRegister::post()['translation']) == '')
+			return ;
+
 		$_SESSION['btSkip-do'][] = $this->_data[0]['id'];
 		$correctTranslations = [];
 		$wrongTranslations = [];
